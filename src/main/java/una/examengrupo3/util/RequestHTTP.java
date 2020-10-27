@@ -1,7 +1,6 @@
 package una.examengrupo3.util;
 
 //import org.una.unaeropuertoclient.model.AuthenticationResponse;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -17,13 +16,13 @@ public class RequestHTTP {
 
     public void request(String url) {
 //        AuthenticationResponse authentication = (AuthenticationResponse) AppContext.getInstance().get("token");
-//        client = HttpClient.newHttpClient();
-//        requestBuilder = HttpRequest.newBuilder()
-//                .uri(URI.create(urlApi + url));
+        client = HttpClient.newHttpClient();
+        requestBuilder = HttpRequest.newBuilder()
+                .uri(URI.create(url));
 //        if (authentication != null) {
 //            requestBuilder.header("Authorization", "Bearer " + authentication.getJwt());
 //        }
-//        requestBuilder.header("content-type", "application/json");
+        requestBuilder.header("content-type", "application/json");
     }
 
     public HttpResponse post(String url, String body) {
