@@ -12,12 +12,12 @@ import java.util.List;
  *
  * @author LordLalo
  */
-public class ServicioDto {
+public class ServicioDTO {
 
     private Long id;
     private String nombre;
     private String descripcion;
-    private List<MembresiaDto> membresia = new ArrayList<>();
+    private List<MembresiaDTO> membresia = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -43,11 +43,11 @@ public class ServicioDto {
         this.descripcion = descripcion;
     }
 
-    public List<MembresiaDto> getMembresia() {
+    public List<MembresiaDTO> getMembresia() {
         return membresia;
     }
 
-    public void setMembresia(List<MembresiaDto> membresia) {
+    public void setMembresia(List<MembresiaDTO> membresia) {
         this.membresia = membresia;
     }
     

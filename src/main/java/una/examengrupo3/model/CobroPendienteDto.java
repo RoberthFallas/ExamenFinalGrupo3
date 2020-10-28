@@ -12,14 +12,14 @@ import java.util.Date;
  *
  * @author LordLalo
  */
-public class CobroPendienteDto {
+public class CobroPendienteDTO {
      private Long id;
     private Year anno;
     private Date fechaVencimiento;
     private Integer monto;
     private boolean estado;
     private String periodo;
-    private MembresiaClienteDto membresiaClienteId;
+    private MembresiaClienteDTO membresiaClienteId;
 
     public Long getId() {
         return id;
@@ -69,11 +69,11 @@ public class CobroPendienteDto {
         this.periodo = periodo;
     }
 
-    public MembresiaClienteDto getMembresiaClienteId() {
+    public MembresiaClienteDTO getMembresiaClienteId() {
         return membresiaClienteId;
     }
 
-    public void setMembresiaClienteId(MembresiaClienteDto membresiaClienteId) {
+    public void setMembresiaClienteId(MembresiaClienteDTO membresiaClienteId) {
         this.membresiaClienteId = membresiaClienteId;
     }
     

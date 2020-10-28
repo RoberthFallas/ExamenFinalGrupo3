@@ -10,20 +10,23 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import una.examengrupo3.util.FlowController;
 
 /**
  * FXML Controller class
  *
- * @author rober
+ * @author LordLalo
  */
-public class MainMenuController extends Controller implements Initializable {
+public class MenuCobrosController extends Controller implements Initializable {
+
+    @FXML
+    public Button btnRegistar;
+    @FXML
+    public Button btnCobro;
 
     /**
      * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -35,16 +38,13 @@ public class MainMenuController extends Controller implements Initializable {
     }
 
     @FXML
-    public void goMonicaModule(ActionEvent event) {
+    public void goRegistrar(ActionEvent event) {
+         FlowController.getInstance().goView("CrearCliente");
     }
 
     @FXML
-    public void goGerardoModule(ActionEvent event) {
-        FlowController.getInstance().goView("MenuCobros");
-    }
-
-    @FXML
-    public void goRoberthModule(ActionEvent event) {
+    public void onActionCobro(ActionEvent event) {
+     FlowController.getInstance().goView("RegistrarCobro");
     }
 
 }

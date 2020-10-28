@@ -12,13 +12,13 @@ import java.util.List;
  *
  * @author LordLalo
  */
-public class MembresiaDto {
+public class MembresiaDTO {
     private Long id;
     private String periodicidad;
     private Integer monto;
     private String descripcion;
-    private ServicioDto servicioId;
-    private List<MembresiaClienteDto> membresiaCliente = new ArrayList<>();
+    private ServicioDTO servicioId;
+    private List<MembresiaClienteDTO> membresiaCliente = new ArrayList<>();
 
     public void setId(Long id) {
         this.id = id;
@@ -36,11 +36,11 @@ public class MembresiaDto {
         this.descripcion = descripcion;
     }
 
-    public void setServicioId(ServicioDto servicioId) {
+    public void setServicioId(ServicioDTO servicioId) {
         this.servicioId = servicioId;
     }
 
-    public void setMembresiaCliente(List<MembresiaClienteDto> membresiaCliente) {
+    public void setMembresiaCliente(List<MembresiaClienteDTO> membresiaCliente) {
         this.membresiaCliente = membresiaCliente;
     }
 
@@ -60,11 +60,11 @@ public class MembresiaDto {
         return descripcion;
     }
 
-    public ServicioDto getServicioId() {
+    public ServicioDTO getServicioId() {
         return servicioId;
     }
 
-    public List<MembresiaClienteDto> getMembresiaCliente() {
+    public List<MembresiaClienteDTO> getMembresiaCliente() {
         return membresiaCliente;
     }
     

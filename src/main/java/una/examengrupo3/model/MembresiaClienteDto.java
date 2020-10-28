@@ -12,26 +12,31 @@ import java.util.List;
  *
  * @author LordLalo
  */
-public class MembresiaClienteDto {
+public class MembresiaClienteDTO {
 
     private Long id;
-    private ClienteDto clienteId;
-    private MembresiaDto membresiaId;
-    private List<CobroPendienteDto> cobroPendiente = new ArrayList<>();
+    private ClienteDTO clienteId;
+    private MembresiaDTO membresiaId;
+    private List<CobroPendienteDTO> cobroPendiente = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return  membresiaId.getDescripcion();
+    }
 
     public Long getId() {
         return id;
     }
 
-    public ClienteDto getClienteId() {
+    public ClienteDTO getClienteId() {
         return clienteId;
     }
 
-    public MembresiaDto getMembresiaId() {
+    public MembresiaDTO getMembresiaId() {
         return membresiaId;
     }
 
-    public List<CobroPendienteDto> getCobroPendiente() {
+    public List<CobroPendienteDTO> getCobroPendiente() {
         return cobroPendiente;
     }
 
@@ -39,15 +44,15 @@ public class MembresiaClienteDto {
         this.id = id;
     }
 
-    public void setClienteId(ClienteDto clienteId) {
+    public void setClienteId(ClienteDTO clienteId) {
         this.clienteId = clienteId;
     }
 
-    public void setMembresiaId(MembresiaDto membresiaId) {
+    public void setMembresiaId(MembresiaDTO membresiaId) {
         this.membresiaId = membresiaId;
     }
 
-    public void setCobroPendiente(List<CobroPendienteDto> cobroPendiente) {
+    public void setCobroPendiente(List<CobroPendienteDTO> cobroPendiente) {
         this.cobroPendiente = cobroPendiente;
     }
     
