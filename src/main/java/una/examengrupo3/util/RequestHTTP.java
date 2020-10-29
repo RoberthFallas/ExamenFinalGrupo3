@@ -16,14 +16,14 @@ public class RequestHTTP {
     HttpClient client;
 
     public void request(String url) {
-//        AuthenticationResponse authentication = (AuthenticationResponse) AppContext.getInstance().get("token");
-//        client = HttpClient.newHttpClient();
-//        requestBuilder = HttpRequest.newBuilder()
-//                .uri(URI.create(urlApi + url));
+//       AuthenticationResponse authentication = (AuthenticationResponse) AppContext.getInstance().get("token");
+       client = HttpClient.newHttpClient();
+       requestBuilder = HttpRequest.newBuilder()
+               .uri(URI.create(url));
 //        if (authentication != null) {
 //            requestBuilder.header("Authorization", "Bearer " + authentication.getJwt());
 //        }
-//        requestBuilder.header("content-type", "application/json");
+       requestBuilder.header("content-type", "application/json");
     }
 
     public HttpResponse post(String url, String body) {

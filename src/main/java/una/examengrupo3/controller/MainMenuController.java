@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import una.examengrupo3.util.FlowController;
 
 /**
  * FXML Controller class
@@ -35,6 +36,7 @@ public class MainMenuController extends Controller implements Initializable {
 
     @FXML
     public void goMonicaModule(ActionEvent event) {
+        FlowController.getInstance().goView("proyectos");
     }
 
     @FXML
@@ -43,6 +45,7 @@ public class MainMenuController extends Controller implements Initializable {
 
     @FXML
     public void goRoberthModule(ActionEvent event) {
+
     }
 
 }

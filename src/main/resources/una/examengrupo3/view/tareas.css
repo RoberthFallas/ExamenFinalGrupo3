@@ -1,0 +1,38 @@
+.hboxProject {
+    -fx-background-color: #97c8e5;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+}
+
+.hboxRedTask {
+    -fx-background-color: #ea7590;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+}
+
+
+.hboxOrangeTask {
+    -fx-background-color: #e59736;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+}
+
+.hboxYellowTask {
+    -fx-background-color: #eade75;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+}
+
+.hboxGreenTask {
+    -fx-background-color: #75ea88;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+}
+
+.slider:disabled, .slider:disabled > * {
+    -fx-opacity: 1.0 ;
+
+}
+.datePicker:disabled, .datePicker:disabled > *{
+    -fx-opacity: 1.0 ;
+}
