@@ -5,13 +5,12 @@ and open the template in the editor.
 */
 /* 
     Created on : 27 oct. 2020, 13:25:01
-    Author     : rober
+    Author     : roberth
 */
 
 /*start --------------------------+Paleta general de colores+---------------------------------- start*/
 *{
     -fx-backGraundColor: linear-gradient(from 25% 25% to 30% 100%, #ffffff, #42A5F5);
-    /*-fx-menu-superior-backGraundColor: linear-gradient(from 25% 25% to 30% 100%, #ffffff, #C5E1A5);*/
     -fx-advance-color: #388E3C;
     -fx-advance-hover-color: #0D47A1;
     -fx-dangerousButton-color: #b71c1c;
@@ -19,7 +18,6 @@ and open the template in the editor.
     -fx-tittle-color: #0D47A1;
     -fx-tittle-dark-color:#263238;
     -fx-semitrasparent-glass-color:#75757550;
-    -fx-fly-module-separator-color:#42424270;
     -fx-button-color:#01579B;
     -fx-button-hover-color:#0288D1;
 }
@@ -64,8 +62,29 @@ and open the template in the editor.
     -fx-font-weight: bold;
 }
 
+#plus-button{
+    -fx-graphic: url("../resources/plus.png");
+    -fx-background-radius: 80;
+    -fx-alignment: CENTER;
+    -fx-width:30px;
+    -fx-hight:30px;
+}
+
+#back-button{
+    -fx-graphic: url("../resources/back.png");
+    -fx-background-radius: 80;
+    -fx-alignment: CENTER;
+    -fx-width:30px;
+    -fx-hight:30px;
+}
+
 .subtittle{
     -fx-text-fill: -fx-tittle-color;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
+}
+
+.air-glass-efect-color{
+    -fx-background-color:-fx-semitrasparent-glass-color;
+    -fx-background-radius:5px;
 }

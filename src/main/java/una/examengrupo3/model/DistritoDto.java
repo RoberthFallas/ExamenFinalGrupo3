@@ -19,7 +19,7 @@ public class DistritoDto extends SuperUnidad {
     @Override
     public Long getPoblacion() {
         if (this.poblacion == null) {
-            return unidades.stream().mapToLong(unidad -> unidad.getPoblacion()).sum();
+            poblacion = unidades.stream().mapToLong(unidad -> unidad.getPoblacion()).sum();
         }
         return this.poblacion;
     }

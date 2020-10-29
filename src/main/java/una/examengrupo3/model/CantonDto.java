@@ -19,7 +19,7 @@ public class CantonDto extends SuperUnidad {
     @Override
     public Long getPoblacion() {
         if (this.poblacion == null) {
-            return distritos.stream().mapToLong(distrito -> distrito.getPoblacion()).sum();
+            poblacion = distritos.stream().mapToLong(distrito -> distrito.getPoblacion()).sum();
         }
         return this.poblacion;
     }

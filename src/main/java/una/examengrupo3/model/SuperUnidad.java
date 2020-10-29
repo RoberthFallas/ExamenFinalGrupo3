@@ -17,6 +17,10 @@ public abstract class SuperUnidad {
     protected Float areaMetrosCuadrados;
     protected Long poblacion;
 
+    public abstract Long getPoblacion();
+
+    public abstract Float getAreaMetrosCuadrados();
+
     public String getNombre() {
         return nombre;
     }
@@ -40,9 +44,5 @@ public abstract class SuperUnidad {
     public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
-
-    public abstract Long getPoblacion();
-
-    public abstract Float getAreaMetrosCuadrados();
 
 }

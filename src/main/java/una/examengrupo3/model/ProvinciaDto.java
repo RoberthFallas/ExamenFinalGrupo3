@@ -18,7 +18,7 @@ public class ProvinciaDto extends SuperUnidad {
     @Override
     public Long getPoblacion() {
         if (this.poblacion == null) {
-            return cantones.stream().mapToLong(canton -> canton.getPoblacion()).sum();
+            poblacion = cantones.stream().mapToLong(canton -> canton.getPoblacion()).sum();
         }
         return this.poblacion;
     }
