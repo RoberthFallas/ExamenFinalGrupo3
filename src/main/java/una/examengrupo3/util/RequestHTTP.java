@@ -66,6 +66,20 @@ public class RequestHTTP {
         return respuesta;
     }
 
+    public HttpResponse delete(String url, String body) {
+        try {
+            request(url);
+            requestBuilder.DELETE();
+            HttpRequest request = requestBuilder.build();
+            this.respuesta = client.send(request, HttpResponse.BodyHandlers.ofString());
+            return respuesta;
+        } catch (IOException | InterruptedException ex) {
+            // handle exception
+            System.out.println(ex.getMessage());
+        }
+        return respuesta;
+    }
+
     public Boolean isError() {
         return respuesta.statusCode() < 200 || respuesta.statusCode() > 299;
     }

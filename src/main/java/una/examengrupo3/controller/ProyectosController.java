@@ -49,6 +49,14 @@ public class ProyectosController extends Controller implements Initializable {
     public Button editButton;
     public Button updateButton;
     public Button deleteButton;
+    public Button editProjectButton;
+    public TextField txtProjectName;
+    public TextField txtObjective;
+    public Button updateProjectButton;
+    public Button cancelEdtionProjectButton;
+    public Button cancelEdtionTaskButton;
+
+    private boolean isEditionProjectMode = false;
 
     TreeItem<HBox> root  = new TreeItem<>();
     List<ProyectoDTO> projects ;
@@ -68,6 +76,7 @@ public class ProyectosController extends Controller implements Initializable {
         TreeItem<HBox> item = new TreeItem<>();
         HBox hBox = makeProjectHbox(project);
         hBox.setId(project.getId().toString());
+        hBox.setOnMouseClicked(projectOnClick);
         item.setValue(hBox);
         item.setExpanded(true);
         parent.getChildren().add(item);
@@ -109,7 +118,20 @@ public class ProyectosController extends Controller implements Initializable {
                 Optional<TareaDTO> tarea = proj.get().getTareas().stream().filter(k -> k.getId() == Long.valueOf(data[0])).findFirst();
                 if (tarea.isPresent()) tareaSelected = tarea.get();
 
-                cargarTareaSeleccionada();
+                showDetailsOfSelectedTask();
+            }
+        }
+    };
+    EventHandler<MouseEvent> projectOnClick = new EventHandler<>() {
+        @Override
+        public void handle(MouseEvent e) {
+            HBox hBox = (HBox) e.getSource();
+            String id = hBox.getId();
+            Optional<ProyectoDTO> proj = projects.stream().filter(k -> k.getId() == Long.valueOf(id)).findFirst();
+            if (proj.isPresent()) {
+                projectSelected = proj.get();
+               clearTaskDetailsInPane(true);
+                showDetailsOfSelectedProject();
             }
         }
     };
@@ -142,16 +164,25 @@ public class ProyectosController extends Controller implements Initializable {
 
 
     }
-    private void cargarTareaSeleccionada(){
+    private void showDetailsOfSelectedProject(){
+        txtProjectName.setText(projectSelected.getNombre());
+        txtObjective.setText(projectSelected.getObjetivo());
+    }
+    private void showDetailsOfSelectedTask(){
+        clearTaskDetailsInPane(false);
         txtDescripcion.setText(tareaSelected.getDescripcion());
         dateInicio.setValue(tareaSelected.getFechaInicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         dateFinal.setValue(tareaSelected.getFechaFinalizacion().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         sliderImportancia.setValue(tareaSelected.getImportancia());
-       // sliderPrioridad.valueProperty().bind(sliderImportancia.valueProperty() * sliderUrgencia.valueProperty());
+        // sliderPrioridad.valueProperty().bind(sliderImportancia.valueProperty() * sliderUrgencia.valueProperty());
         sliderPrioridad.setValue(tareaSelected.getUrgencia() * tareaSelected.getUrgencia());
         sliderUrgencia.setValue(tareaSelected.getUrgencia());
         sliderAvance.setValue(tareaSelected.getPorcentajeAvance());
+        showDetailsOfSelectedProject();
+    }
 
+    private  void clearTaskDetailsInPane(boolean status){
+        taskPane.setVisible(!status);
     }
 
     private HBox makeTaskHbox(TareaDTO tarea){
@@ -229,8 +260,20 @@ public class ProyectosController extends Controller implements Initializable {
         root.getChildren().clear();
         for (ProyectoDTO projet:projects){
            TreeItem p =  makeProjectBranch(projet,root);
+            System.out.println("make projint");
            if(projet.getTareas()!=null) projet.getTareas().forEach(k ->makeTaskBranch(k,p));
         }
+    }
+
+    private  void projectEdition(boolean status){
+        clearTaskDetailsInPane(true);
+        isEditionProjectMode = status;
+       editButton.setVisible(!status);
+       txtObjective.setEditable(status);
+       txtProjectName.setEditable(status);
+       updateProjectButton.setVisible(status);
+       cancelEdtionProjectButton.setVisible(status);
+
     }
 
     private  void taskEdition(boolean status){
@@ -248,6 +291,7 @@ public class ProyectosController extends Controller implements Initializable {
         editButton.setVisible(!status);
         deleteButton.setVisible(!status);
         updateButton.setVisible(status);
+        cancelEdtionTaskButton.setVisible(status);
 
     }
     @Override
@@ -261,6 +305,7 @@ public class ProyectosController extends Controller implements Initializable {
         loadProjects();
         showProjects();
         taskEdition(false);
+        projectEdition(false);
 
     }
 
@@ -291,9 +336,16 @@ public class ProyectosController extends Controller implements Initializable {
 
     }
 
-    private void updateInList(TareaDTO tarea){
+    private void updateTaskInList(TareaDTO tarea){
         sliderPrioridad.setValue(tarea.getUrgencia() * tarea.getUrgencia());
         projects.stream().filter(k -> projectSelected.getId() == k.getId()).findFirst().get().updateTask(tarea);
+    }
+
+    private void updateProjectInList(ProyectoDTO proyectoDTO){
+        projects.forEach(k -> {
+            if(k.getId() == proyectoDTO.getId()) k = proyectoDTO;
+        });
+        showProjects();
     }
 
 
@@ -305,6 +357,7 @@ public class ProyectosController extends Controller implements Initializable {
 
 
     public void deleteSelectedTaskOnAction(ActionEvent actionEvent) {
+
     }
 
     public void editSelectedTaskOnAction(ActionEvent actionEvent) {
@@ -333,11 +386,36 @@ public class ProyectosController extends Controller implements Initializable {
         Respuesta respuesta = new TareaService().update(updateInputDataToSelectedTask());
         if(respuesta.getEstado()){
             tareaSelected = (TareaDTO) respuesta.getResultado("data");
-            updateInList(tareaSelected);
+            updateTaskInList(tareaSelected);
             showProjects();
         }
         taskEdition(false);
 
+    }
 
+    private void updateProjectFromInputData(){
+        ProyectoDTO proyectoDTO = new ProyectoDTO(txtProjectName.getText(),txtObjective.getText());
+        proyectoDTO.setId(projectSelected.getId());
+        Respuesta respuesta = new ProyectoService().update(proyectoDTO);
+        if(respuesta.getEstado()){
+            projectEdition(false);
+            updateProjectInList(proyectoDTO);
+            new Mensaje().showModal(Alert.AlertType.INFORMATION, "Información", this.getStage(), "Se ha actualizado el proyecto con éxito");
+        }
+    }
+    public void editProjectOnAction(ActionEvent actionEvent) {
+        projectEdition(true);
+    }
+
+    public void cancelEdtionProjectOnAction(ActionEvent actionEvent) {
+        projectEdition(false);
+    }
+
+    public void updateProjectButtonOnAction(ActionEvent actionEvent) {
+        updateProjectFromInputData();
+    }
+
+    public void cancelEdtionTaskOnAction(ActionEvent actionEvent) {
+        taskEdition(false);
     }
 }

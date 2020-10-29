@@ -49,7 +49,7 @@ public class CrearProyectoController extends Controller implements Initializable
             AppContext.getInstance().set("createProject", createdProject);
 
             ProyectosController proyectosController = (ProyectosController) AppContext.getInstance().get("proyectosController");
-           proyectosController.addNewProject();
+            proyectosController.addNewProject();
             new Mensaje().showModal(Alert.AlertType.INFORMATION, "Información", this.getStage(), "Se ha creado el proyecto con éxito");
         }
     }
