@@ -10,14 +10,22 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import una.examengrupo3.util.FlowController;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import una.examengrupo3.services.ProvinciaService;
+import una.examengrupo3.util.Respuesta;
 
 /**
  * FXML Controller class
  *
- * @author roberth
+ * @author rober
  */
-public class MainMenuController extends Controller implements Initializable {
+public class VisualizadorArbGerarqRob extends Controller implements Initializable {
+
+    @FXML
+    public Label lblTreeLevel;
+    @FXML
+    public AnchorPane apCharger;
 
     /**
      * Initializes the controller class.
@@ -27,7 +35,7 @@ public class MainMenuController extends Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }
 
     @Override
@@ -35,16 +43,7 @@ public class MainMenuController extends Controller implements Initializable {
     }
 
     @FXML
-    public void goMonicaModule(ActionEvent event) {
-    }
-
-    @FXML
-    public void goGerardoModule(ActionEvent event) {
-    }
-
-    @FXML
-    public void goRoberthModule(ActionEvent event) {
-        FlowController.getInstance().goView("VisualizadorArbGerarqRob");
+    public void onActionNivelAnterior(ActionEvent event) {
     }
 
 }

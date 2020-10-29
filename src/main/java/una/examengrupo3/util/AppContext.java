@@ -35,12 +35,12 @@ public class AppContext {
     private void cargarPropiedades() {
         try {
             FileInputStream configFile;
-            configFile = new FileInputStream("src/main/resources/org/una/laboratorio1/config/properties.ini");
+            configFile = new FileInputStream("src/main/resources/una/examengrupo3/config/restDirection.ini");
             Properties appProperties = new Properties();
             appProperties.load(configFile);
             configFile.close();
-            if (appProperties.getProperty("propiedades.resturl") != null) {
-                this.set("resturl", appProperties.getProperty("propiedades.resturl"));
+            if (appProperties.getProperty("resturlRoberth") != null) {
+                this.set("resturlRoberth", appProperties.getProperty("resturlRoberth"));
             }
         } catch (IOException io) {
             System.out.println("Archivo de configuración no encontrado.");
