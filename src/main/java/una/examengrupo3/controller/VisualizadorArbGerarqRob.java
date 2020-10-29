@@ -14,7 +14,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import una.examengrupo3.model.ProvinciaDto;
 import una.examengrupo3.services.ProvinciaService;
+import una.examengrupo3.util.AppContext;
 import una.examengrupo3.util.FlowController;
 import una.examengrupo3.util.Mensaje;
 import una.examengrupo3.util.Respuesta;
@@ -45,7 +45,7 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
     public Button plusButton;
     @FXML
     public HBox hbLocationCharger;
-    private Integer profunidadActual = -1;
+    private Integer profunidadActual;
     private Stack<List<SUCharger>> niveles;
 
     /**
@@ -56,14 +56,12 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
     }
 
     @Override
     public void initialize() {
-        hbLocationCharger.getChildren().clear();
-        niveles = new Stack();
-        cargarProvincias();
+        clearUI();
+        cargarProvincias(false);
     }
 
     @FXML
@@ -79,6 +77,14 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
 
     @FXML
     public void NuevoElemento(ActionEvent event) {
+        switch (profunidadActual) {
+            case 0:
+                nuevaProvincia();
+                break;
+            case 1:
+                nuevoCanton();
+                break;
+        }
     }
 
     public void goToNewLevel(List<SUCharger> suList, boolean save) {
@@ -88,6 +94,10 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
         }
         treeLevelCharger.getChildren().removeIf(node -> !"plus-button".equals(node.getId()));
         treeLevelCharger.getChildren().addAll(suList);
+        suList.forEach(cloud -> {
+            putActionButonToCloud(cloud);
+        });
+
     }
 
     public Label newSubTittle(String text) {
@@ -96,7 +106,7 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
         return toRet;
     }
 
-    public void cargarProvincias() {
+    public void cargarProvincias(boolean refreshMode) {
         Thread th = new Thread(() -> {
             Respuesta resp = new ProvinciaService().findAll();
             Platform.runLater(() -> {
@@ -104,7 +114,8 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
                     List<ProvinciaDto> provincias = (List) resp.getResultado("data");
                     List<SUCharger> suList = new ArrayList();
                     provincias.forEach(prov -> suList.add(new SUCharger(prov)));
-                    goToNewLevel(suList, true);
+                    goToNewLevel(suList, !refreshMode);
+                    changeTreeTittle();
                 } else {
                     new Mensaje().show(AlertType.WARNING, "Atención", resp.getMensaje());
                 }
@@ -114,10 +125,12 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
     }
 
     public void nuevaProvincia() {
-
+        AppContext.getInstance().set("prov", new ProvinciaDto());
+        AppContext.getInstance().set("visualArb", this);
+        FlowController.getInstance().goViewInWindowModal("EditorProvCantDistr", this.getStage(), false);
     }
 
-    public void nuevCanton() {
+    public void nuevoCanton() {
 
     }
 
@@ -127,6 +140,42 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
 
     public void nuevaUnidad() {
 
+    }
+
+    public void putActionButonToCloud(SUCharger cloud) {
+        Button action = new Button("Ampliar");
+        action.setOnAction(event -> {
+            AppContext.getInstance().set("toShowDetall", cloud.getsUnidad());
+            FlowController.getInstance().<AnchorPane>chargeOn(apCharger, "VisualizadorSuperUnid");
+        });
+        cloud.getChildren().add(action);
+        action.setLayoutX(110);
+        action.setLayoutY(30);
+    }
+
+    public void clearUI() {
+        lblTreeLevel.setText("Cargando...");
+        hbLocationCharger.getChildren().clear();
+        niveles = new Stack();
+        profunidadActual = -1;
+        treeLevelCharger.getChildren().removeIf(node -> !"plus-button".equals(node.getId()));
+    }
+
+    public void changeTreeTittle() {
+        switch (profunidadActual) {
+            case 0:
+                lblTreeLevel.setText("Provincias");
+                break;
+            case 1:
+                lblTreeLevel.setText("Cantones");
+                break;
+            case 2:
+                lblTreeLevel.setText("Distritos");
+                break;
+            default:
+                lblTreeLevel.setText("Unidades");
+                break;
+        }
     }
 
 }

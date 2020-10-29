@@ -20,6 +20,9 @@ and open the template in the editor.
     -fx-semitrasparent-glass-color:#75757550;
     -fx-button-color:#01579B;
     -fx-button-hover-color:#0288D1;
+    -fx-nube-color: #80CBC4;
+    -fx-nube-hover-color:#4DB6AC;
+    -fx-nube-pressed-color:#81C784;
 }
 /*end ----------------------------*Paleta general de colores*----------------------------------- end*/
 
@@ -87,4 +90,32 @@ and open the template in the editor.
 .air-glass-efect-color{
     -fx-background-color:-fx-semitrasparent-glass-color;
     -fx-background-radius:5px;
+}
+
+.SU-Nube-provincia{
+    -fx-background-color:-fx-nube-color;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, #37474F, 7, 0, -1, 0);
+}
+
+.SU-Nube-provincia:hover{
+    -fx-background-color:-fx-nube-hover-color;
+}
+
+.SU-Nube-provincia:pressed{
+    -fx-background-color:-fx-nube-hover-color;
+}
+
+.SU-Nube-provincia{
+    -fx-background-color:-fx-nube-color;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, #37474F, 7, 0, -1, 0);
+}
+
+.SUCharger {
+    -fx-background-color: transparent;
+}
+
+.SUCharger .viewport {
+    -fx-background-color: -fx-semitrasparent-glass-color;
 }

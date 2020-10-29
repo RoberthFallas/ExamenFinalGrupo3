@@ -24,9 +24,11 @@ public class ProvinciaDto extends SuperUnidad {
     }
 
     @Override
+    @SuppressWarnings("null")
     public Float getAreaMetrosCuadrados() {
         if (this.areaMetrosCuadrados == null) {
             cantones.forEach(canton -> this.areaMetrosCuadrados += canton.getAreaMetrosCuadrados());
+            areaMetrosCuadrados = areaMetrosCuadrados == null ? 0f : areaMetrosCuadrados;
         }
         return this.areaMetrosCuadrados;
     }

@@ -34,4 +34,13 @@ public class ProvinciaService {
             return new Respuesta(false, "No ha sido posible establecer contacto con el servidor", ex.getMessage());
         }
     }
+
+    public Respuesta create(ProvinciaDto provincia) {
+        RestConector rc = new RestConector("/provincias/create");
+        rc.post((ProvinciaDto) provincia);
+        if (rc.isError()) {
+            return new Respuesta(false, "Error al registrar nueva provincia en el sistema.", "");
+        }
+        return new Respuesta(true, "", "", "data", rc.<ProvinciaDto>getResultAsObject(ProvinciaDto.class));
+    }
 }
