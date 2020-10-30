@@ -78,8 +78,8 @@ public class RestConector {
         return responce.statusCode() == 204;
     }
 
-    public <ObjectType> List<ObjectType> getResultAsList(Class<ObjectType> ObjectTypeClass) {
-        Type objType = TypeToken.getParameterized(List.class, ObjectTypeClass).getType();
+    public <ObjectType> List<ObjectType> getResultAsList(Class<ObjectType> t) {
+        Type objType = TypeToken.getParameterized(List.class, t).getType();
         return new Gson().fromJson(responce.body().toString(), objType);
     }
 

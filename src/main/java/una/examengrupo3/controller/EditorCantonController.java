@@ -58,6 +58,7 @@ public class EditorCantonController extends Controller implements Initializable 
             Respuesta resp = new CantonService().create(canton);
             if (resp.getEstado()) {
                 new Mensaje().show(Alert.AlertType.INFORMATION, "Ación exitosa", "Cambios guardados");
+                canton = (CantonDto) resp.getResultado("data");
                 updateBack();
             } else {
                 new Mensaje().show(Alert.AlertType.WARNING, "Observa con atención", resp.getMensaje());

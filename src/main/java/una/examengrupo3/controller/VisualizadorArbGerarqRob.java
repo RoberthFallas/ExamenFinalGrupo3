@@ -24,7 +24,6 @@ import una.examengrupo3.model.CantonDto;
 import una.examengrupo3.model.DistritoDto;
 import una.examengrupo3.model.ProvinciaDto;
 import una.examengrupo3.model.SuperUnidad;
-import una.examengrupo3.model.UnidadDto;
 import una.examengrupo3.services.ProvinciaService;
 import una.examengrupo3.util.AppContext;
 import una.examengrupo3.util.FlowController;
@@ -77,6 +76,7 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
             profunidadActual--;
             selectedRout.pop();
             niveles.pop();
+            changeTreeTittle();
             goToNewLevel(niveles.peek(), false);
         } else {
             FlowController.getInstance().goBack();
@@ -111,7 +111,6 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
         suList.forEach(cloud -> {
             putActionButonToCloud(cloud);
         });
-
     }
 
     public void cargarProvincias() {
@@ -147,7 +146,11 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
     }
 
     public void nuevoDistrito() {
-
+        DistritoDto distr = new DistritoDto();
+        distr.setCanton((CantonDto) selectedRout.peek().getsUnidad());
+        AppContext.getInstance().set("distr", distr);
+        AppContext.getInstance().set("visualArb", this);
+        FlowController.getInstance().goViewInWindowModal("EditorDistrito", this.getStage(), false);
     }
 
     public void nuevaUnidad() {
@@ -198,7 +201,7 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
 
     public void addCloudFromExterior(SuperUnidad superU) {
         SUCharger suc = new SUCharger(superU);
-        treeLevelCharger.getChildren().forEach(act -> {    //Revisa la lista para asegurarse de que el nuevo dato no está repetido
+        treeLevelCharger.getChildren().forEach(act -> {//Revisa la lista para asegurarse de que el dato a ingresar no sea repetido.
             if (act instanceof SUCharger) {
                 if (((SUCharger) act).getsUnidad().getId().equals(superU.getId())) {
                     toDelete = (SUCharger) act;
@@ -211,6 +214,7 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
         }
         toDelete = null;
         niveles.peek().add(suc);
+        putActionButonToCloud(suc);
         treeLevelCharger.getChildren().add(suc);
     }
 

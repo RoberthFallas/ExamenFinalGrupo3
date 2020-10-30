@@ -6,7 +6,6 @@
 package una.examengrupo3.services;
 
 import una.examengrupo3.model.CantonDto;
-import una.examengrupo3.model.ProvinciaDto;
 import una.examengrupo3.util.Respuesta;
 import una.examengrupo3.util.RestConector;
 
@@ -24,6 +23,6 @@ public class CantonService {
         if (rc.isError()) {
             return new Respuesta(false, "Error al registrar nuevo cantón en el sistema.", "");
         }
-        return new Respuesta(true, "", "", "data", rc.<ProvinciaDto>getResultAsObject(ProvinciaDto.class));
+        return new Respuesta(true, "", "", "data", rc.<CantonDto>getResultAsObject(CantonDto.class));
     }
 }

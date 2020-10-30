@@ -14,8 +14,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import una.examengrupo3.model.ProvinciaDto;
-import una.examengrupo3.services.ProvinciaService;
+import una.examengrupo3.model.CantonDto;
+import una.examengrupo3.model.DistritoDto;
+import una.examengrupo3.services.CantonService;
+import una.examengrupo3.services.DistritoService;
 import una.examengrupo3.util.AppContext;
 import una.examengrupo3.util.Mensaje;
 import una.examengrupo3.util.Respuesta;
@@ -25,15 +27,15 @@ import una.examengrupo3.util.Respuesta;
  *
  * @author roberth
  */
-public class EditorProvinciaController extends Controller implements Initializable {
+public class EditorDistritoController extends Controller implements Initializable {
 
-    public ProvinciaDto provincia;
     @FXML
     public Label tittle;
     @FXML
     public TextField txtNombre;
     @FXML
     public TextField txtCodigo;
+    private DistritoDto distrito;
 
     /**
      * Initializes the controller class.
@@ -48,17 +50,17 @@ public class EditorProvinciaController extends Controller implements Initializab
 
     @Override
     public void initialize() {
-        provincia = (ProvinciaDto) AppContext.getInstance().get("prov");
+        distrito = (DistritoDto) AppContext.getInstance().get("distr");
     }
 
     @FXML
     public void onActionGuradarCambios(ActionEvent event) {
         if (!txtCodigo.getText().isBlank() && !txtNombre.getText().isBlank()) {
             chargeDatos();
-            Respuesta resp = new ProvinciaService().create(provincia);
+            Respuesta resp = new DistritoService().create(distrito);
             if (resp.getEstado()) {
                 new Mensaje().show(Alert.AlertType.INFORMATION, "Ación exitosa", "Cambios guardados");
-                provincia = (ProvinciaDto) resp.getResultado("data");
+                distrito = (DistritoDto) resp.getResultado("data");
                 updateBack();
             } else {
                 new Mensaje().show(Alert.AlertType.WARNING, "Observa con atención", resp.getMensaje());
@@ -68,7 +70,17 @@ public class EditorProvinciaController extends Controller implements Initializab
         }
     }
 
-    public void windowFuntions() {
+    private void chargeDatos() {
+        distrito.setCodigo(Integer.valueOf(txtCodigo.getText()));
+        distrito.setNombre(txtNombre.getText().trim());
+    }
+
+    private void updateBack() {
+        VisualizadorArbGerarqRob va  = (VisualizadorArbGerarqRob) AppContext.getInstance().get("visualArb");
+        va.addCloudFromExterior(distrito);
+    }
+
+    private void windowFuntions() {
         Platform.runLater(() -> {
             this.getStage().setOnCloseRequest(event -> {
                 clearContext();
@@ -76,20 +88,10 @@ public class EditorProvinciaController extends Controller implements Initializab
         });
     }
 
-    public void clearContext() {
+    private void clearContext() {
         txtCodigo.setText("");
         txtNombre.setText("");
-        provincia = null;
-    }
-
-    public void chargeDatos() {
-        provincia.setCodigo(Integer.valueOf(txtCodigo.getText()));
-        provincia.setNombre(txtNombre.getText().trim());
-    }
-
-    public void updateBack() {
-        VisualizadorArbGerarqRob va  = (VisualizadorArbGerarqRob) AppContext.getInstance().get("visualArb");
-        va.addCloudFromExterior(provincia);
+        distrito = null;
     }
 
 }
