@@ -405,7 +405,7 @@ public class ProyectosController extends Controller implements Initializable {
 
         TareaDTO newtask = (TareaDTO) AppContext.getInstance().get("taskCreated");
         if(newtask!=null){
-            showDataProjects.stream().filter(k -> projectSelected.getId() == k.getId()).findFirst().get().getTareas().add(newtask);
+            showDataProjects.stream().filter(k -> projectSelected.getId().equals(k.getId())).findFirst().get().addNewTask(newtask);
             showProjects();
         }
     }
@@ -438,9 +438,9 @@ public class ProyectosController extends Controller implements Initializable {
     }
 
     private void updateProjectInList(ProyectoDTO proyectoDTO){
-        showDataProjects.forEach(k -> {
-            if(k.getId() == proyectoDTO.getId()) k = proyectoDTO;
-        });
+
+
+        loadProjects();
         showProjects();
     }
 
@@ -532,15 +532,7 @@ public class ProyectosController extends Controller implements Initializable {
 
 
         if(!txtProjectName.getText().isEmpty() && !txtObjective.getText().isEmpty()){
-            boolean seleccionar = true;
-            if(isEditionTaskMode || isEditionProjectMode) {
-                seleccionar = showConfirmation("Se encuentra usted editando una tarea o proyecto,al seleccionar otra tarea o proyecto perderá los datos editados, ¿Desea seleccionar otra tarea de todas maneras? ");
-                if(seleccionar) {
-                    projectEdition(false);
-                    taskEdition(false);
-                }
-            }
-            if(seleccionar) updateProjectFromInputData();
+                updateProjectFromInputData();
         }else{
             new Mensaje().showModal(Alert.AlertType.INFORMATION, "Información", this.getStage(), "Se deben completar todos los campos");
         }

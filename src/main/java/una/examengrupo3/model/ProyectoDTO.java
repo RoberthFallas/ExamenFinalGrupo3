@@ -1,6 +1,7 @@
 package una.examengrupo3.model;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProyectoDTO {
@@ -60,6 +61,11 @@ public class ProyectoDTO {
        tareas.forEach(t -> {
            if(t.getId() == tareaDTO.getId()) t = tareaDTO;
        });
+    }
+
+    public void addNewTask(TareaDTO tareaDTO){
+        if(tareas==null) tareas = new ArrayList<>();
+        tareas.add(tareaDTO);
     }
 
     public void deleteTask(TareaDTO tareaDTO){

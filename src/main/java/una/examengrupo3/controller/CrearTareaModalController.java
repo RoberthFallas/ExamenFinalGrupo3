@@ -14,8 +14,6 @@ import una.examengrupo3.util.Respuesta;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class CrearTareaModalController  extends Controller implements Initializable {
