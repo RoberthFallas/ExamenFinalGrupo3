@@ -32,6 +32,11 @@ public class CrearProyectoController extends Controller implements Initializable
 
     }
 
+    public boolean isValidData(){
+        if(txtObjetivo.getText().isEmpty() || txtNombre.getText().isEmpty()) return false;
+        return true;
+    }
+
     private ProyectoDTO createProjectFromInputData(){
 
         ProyectoDTO proyecto = new ProyectoDTO(txtNombre.getText(),txtObjetivo.getText());
@@ -42,15 +47,27 @@ public class CrearProyectoController extends Controller implements Initializable
 
     public void addProjectOnAction(ActionEvent actionEvent) {
 
-        Respuesta respuesta = new ProyectoService().create(createProjectFromInputData());
-        if(respuesta.getEstado()){
+        if(isValidData()){
+            Respuesta respuesta = new ProyectoService().create(createProjectFromInputData());
+            if(respuesta.getEstado()){
 
-            ProyectoDTO createdProject = (ProyectoDTO) respuesta.getResultado("data");
-            AppContext.getInstance().set("createProject", createdProject);
+                ProyectoDTO createdProject = (ProyectoDTO) respuesta.getResultado("data");
+                AppContext.getInstance().set("createProject", createdProject);
 
-            ProyectosController proyectosController = (ProyectosController) AppContext.getInstance().get("proyectosController");
-            proyectosController.addNewProject();
-            new Mensaje().showModal(Alert.AlertType.INFORMATION, "Información", this.getStage(), "Se ha creado el proyecto con éxito");
+                ProyectosController proyectosController = (ProyectosController) AppContext.getInstance().get("proyectosController");
+                proyectosController.addNewProject();
+                new Mensaje().showModal(Alert.AlertType.INFORMATION, "Información", this.getStage(), "Se ha creado el proyecto con éxito");
+                clearData();
+                this.getStage().close();
+            }
+        }else{
+            new Mensaje().showModal(Alert.AlertType.WARNING, "Información", this.getStage(), "Se deben completar todos los campos");
         }
+
+
+    }
+    private void clearData(){
+        txtNombre.setText("");
+        txtObjetivo.setText("");
     }
 }

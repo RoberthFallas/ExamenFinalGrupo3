@@ -13,6 +13,7 @@ import una.examengrupo3.util.Mensaje;
 import una.examengrupo3.util.Respuesta;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -35,15 +36,15 @@ public class CrearTareaModalController  extends Controller implements Initializa
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         projectSelected = (ProyectoDTO) AppContext.getInstance().get("projectSelected");
-        labelProjecName.setText("Proyecto" + projectSelected.getNombre());
+        labelProjecName.setText("Proyecto: " + projectSelected.getNombre());
         bindProperties();
     }
 
     private  TareaDTO createTaskWithDataInput(){
 
+
         TareaDTO tareaDTO = new TareaDTO();
         tareaDTO.setDescripcion(txtDescripcion.getText());
-        System.out.println(dateFinal.getValue());
         tareaDTO.setFechaFinalizacion( dateFinal.getValue());
         tareaDTO.setFechaInicio(dateInicio.getValue());
         tareaDTO.setImportancia((long) sliderImportancia.getValue());
@@ -54,6 +55,20 @@ public class CrearTareaModalController  extends Controller implements Initializa
 
         return tareaDTO;
 
+    }
+
+    private boolean  validateData(){
+        if(txtDescripcion.getText().isEmpty() || dateFinal.getValue()==null || dateInicio.getValue() == null) return false;
+        return true;
+    }
+
+    private void clearData(){
+       txtDescripcion.setText("");
+       dateFinal.setValue(LocalDate.now());
+       dateFinal.setValue(LocalDate.now());
+       sliderImportancia.setValue(0);
+       sliderAvance.setValue(0);
+       sliderUrgencia.setValue(0);
     }
 
     private void bindProperties(){
@@ -82,14 +97,20 @@ public class CrearTareaModalController  extends Controller implements Initializa
     }
 
     public void createTaskOnAction(ActionEvent actionEvent) {
+      if(validateData()){
+          Respuesta respuesta = new TareaService().create(createTaskWithDataInput());
 
-        Respuesta respuesta = new TareaService().create(createTaskWithDataInput());
+          if(respuesta.getEstado()){
+              TareaDTO createdTask = (TareaDTO) respuesta.getResultado("data");
+              AppContext.getInstance().set("taskCreated",createdTask );
+              refreshBack();
+              new Mensaje().showModal(Alert.AlertType.WARNING, "Información", this.getStage(), "Se ha creado la tarea con éxito");
+              clearData();
+              this.getStage().close();
+          }
+      }else{
+          new Mensaje().showModal(Alert.AlertType.INFORMATION, "Información", this.getStage(), "Se deben completar todos los campos");
+      }
 
-        if(respuesta.getEstado()){
-            TareaDTO createdTask = (TareaDTO) respuesta.getResultado("data");
-            AppContext.getInstance().set("taskCreated",createdTask );
-            refreshBack();
-            new Mensaje().showModal(Alert.AlertType.INFORMATION, "Información", this.getStage(), "Se ha creado la tarea con éxito");
-        }
     }
 }

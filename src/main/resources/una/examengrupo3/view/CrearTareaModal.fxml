@@ -8,30 +8,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="621.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="una.examengrupo3.controller.CrearTareaModalController">
+<AnchorPane prefHeight="513.0" prefWidth="484.0" styleClass="fondo" stylesheets="@tareas.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="una.examengrupo3.controller.CrearTareaModalController">
    <children>
-      <Pane fx:id="taskPane" layoutX="25.0" layoutY="66.0" prefHeight="554.0" prefWidth="610.0">
+      <Pane fx:id="taskPane" layoutY="79.0" prefHeight="437.0" prefWidth="484.0">
          <children>
-            <Label layoutX="37.0" layoutY="106.0" text="Descripción" />
-            <TextField fx:id="txtDescripcion" layoutX="135.0" layoutY="98.0" prefHeight="32.0" prefWidth="267.0" />
-            <DatePicker fx:id="dateInicio" layoutX="140.0" layoutY="165.0" prefHeight="32.0" prefWidth="257.0" />
-            <Label layoutX="37.0" layoutY="171.0" text="Fecha inicio" />
-            <DatePicker fx:id="dateFinal" layoutX="140.0" layoutY="224.0" prefHeight="32.0" prefWidth="257.0" />
-            <Label layoutX="40.0" layoutY="232.0" text="Fecha final" />
-            <Label layoutX="40.0" layoutY="295.0" text="Importancia" />
-            <Label layoutX="40.0" layoutY="354.0" text="Urgencia" />
-            <Label layoutX="42.0" layoutY="407.0" text="Avance" />
-            <Slider fx:id="sliderAvance" layoutX="169.0" layoutY="402.0" prefHeight="26.0" prefWidth="207.0" />
-            <Slider fx:id="sliderUrgencia" layoutX="169.0" layoutY="349.0" prefHeight="26.0" prefWidth="207.0" />
-            <Slider fx:id="sliderImportancia" layoutX="173.0" layoutY="291.0" prefHeight="26.0" prefWidth="207.0" />
-            <Label layoutX="37.0" layoutY="30.0" text="Detalles de la Tarea" />
-            <Label fx:id="labelImportenciaPercent" layoutX="386.0" layoutY="295.0" text="\%" />
-            <Label fx:id="labelUrgenciaPercent" layoutX="384.0" layoutY="354.0" text="\%" />
-            <Label fx:id="labelAvancePercent" layoutX="387.0" layoutY="406.0" stylesheets="@tareas.css" text="\%" />
-            <Button defaultButton="true" layoutX="268.0" layoutY="510.0" mnemonicParsing="false" onAction="#createTaskOnAction" text="CREAR TAREA" />
+            <Label layoutX="48.0" layoutY="51.0" text="Descripción" />
+            <TextField fx:id="txtDescripcion" layoutX="146.0" layoutY="43.0" prefHeight="32.0" prefWidth="267.0" />
+            <DatePicker fx:id="dateInicio" layoutX="146.0" layoutY="110.0" prefHeight="32.0" prefWidth="267.0" />
+            <Label layoutX="48.0" layoutY="116.0" text="Fecha inicio" />
+            <DatePicker fx:id="dateFinal" layoutX="146.0" layoutY="170.0" prefHeight="32.0" prefWidth="267.0" />
+            <Label layoutX="51.0" layoutY="177.0" text="Fecha final" />
+            <Label layoutX="51.0" layoutY="240.0" text="Importancia" />
+            <Label layoutX="51.0" layoutY="299.0" text="Urgencia" />
+            <Label layoutX="53.0" layoutY="352.0" text="Avance" />
+            <Slider fx:id="sliderAvance" layoutX="163.0" layoutY="346.0" prefHeight="26.0" prefWidth="207.0" />
+            <Slider fx:id="sliderUrgencia" layoutX="163.0" layoutY="294.0" prefHeight="26.0" prefWidth="207.0" />
+            <Slider fx:id="sliderImportancia" layoutX="161.0" layoutY="236.0" prefHeight="26.0" prefWidth="207.0" />
+            <Label fx:id="labelImportenciaPercent" layoutX="395.0" layoutY="240.0" text="\%" />
+            <Label fx:id="labelUrgenciaPercent" layoutX="395.0" layoutY="299.0" text="\%" />
+            <Label fx:id="labelAvancePercent" layoutX="398.0" layoutY="351.0" stylesheets="@tareas.css" text="\%" />
+            <Button alignment="CENTER" defaultButton="true" layoutX="195.0" layoutY="398.0" mnemonicParsing="false" onAction="#createTaskOnAction" prefHeight="26.0" prefWidth="109.0" text="CREAR TAREA" />
          </children>
       </Pane>
-      <Label layoutX="246.0" layoutY="14.0" text="CREAR NUEVA TAREA" />
-      <Label fx:id="labelProjecName" layoutX="59.0" layoutY="48.0" text="PROYECTO:" />
+      <Label layoutX="189.0" layoutY="14.0" styleClass="tittle" text="NUEVA TAREA" />
+      <Label fx:id="labelProjecName" layoutX="40.0" layoutY="59.0" styleClass="subtittle" text="PROYECTO:" />
    </children>
 </AnchorPane>

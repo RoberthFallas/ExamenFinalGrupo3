@@ -1,33 +1,30 @@
+/*start --------------------------+Paleta general de colores+---------------------------------- start*/
+*{
+    -fx-backGraundColor: linear-gradient(from 25% 25% to 30% 100%, #ffffff, #89ceec);
+    /*-fx-menu-superior-backGraundColor: linear-gradient(from 25% 25% to 30% 100%, #ffffff, #C5E1A5);*/
+    -fx-advance-color: #388E3C;
+    -fx-advance-hover-color: #0595b1;
+    -fx-dangerousButton-color: #ef454b;
+    -fx-dangerousButton-hover-color: #58ae5f;
+    -fx-tittle-color: #034e67;
+    -fx-tittle-dark-color:#263238;
+    -fx-semitrasparent-glass-color:#75757550;
+    -fx-fly-module-separator-color:#42424270;
+    -fx-button-color: #0193cf;
+    -fx-button-hover-color: #0c5680;
+    -fx-combobox-color: #189cd0;
+    -fx-textfield-color: #054f66;
+}
+/*end ----------------------------*Paleta general de colores*----------------------------------- end*/
+
+
 .hboxProject {
-    -fx-background-color: #97c8e5;
+    -fx-background-color: #0193cf;
     -fx-padding: 15;
     -fx-spacing: 10;
+    -fx-border-color: BlACK;
 }
 
-.hboxRedTask {
-    -fx-background-color: #ea7590;
-    -fx-padding: 15;
-    -fx-spacing: 10;
-}
-
-
-.hboxOrangeTask {
-    -fx-background-color: #e59736;
-    -fx-padding: 15;
-    -fx-spacing: 10;
-}
-
-.hboxYellowTask {
-    -fx-background-color: #eade75;
-    -fx-padding: 15;
-    -fx-spacing: 10;
-}
-
-.hboxGreenTask {
-    -fx-background-color: #75ea88;
-    -fx-padding: 15;
-    -fx-spacing: 10;
-}
 
 .slider:disabled, .slider:disabled > * {
     -fx-opacity: 1.0 ;
@@ -35,4 +32,116 @@
 }
 .datePicker:disabled, .datePicker:disabled > *{
     -fx-opacity: 1.0 ;
+}
+
+#dangerous-button-efect{
+    -fx-background-color: -fx-dangerousButton-color;
+}
+#dangerous-button-efect:hover{
+    -fx-background-color: -fx-dangerousButton-hover-color;
+}
+
+#advance-button-efect{
+    -fx-background-color: -fx-advance-color;
+}
+#advance-button-efect:hover{
+    -fx-background-color: -fx-advance-hover-color;
+}
+
+.button{
+    -fx-background-color: -fx-button-color;
+    -fx-font-size: 13px;
+    -fx-border-radius: 0.2;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #ffffff;
+}
+
+.deleteButton{
+    -fx-background-color:  -fx-dangerousButton-color;
+    -fx-font-size: 13px;
+    -fx-border-radius: 0.2;
+    -fx-text-fill: #ffffff;
+
+}
+.deleteButton:hover{
+    -fx-background-color: -fx-button-hover-color;
+}
+
+
+.button:hover{
+    -fx-background-color: -fx-button-hover-color;
+}
+
+.slider .track{
+    -progress : 0.2;
+    -fx-background-color: #0792be
+}
+
+.button:pressed{
+    -fx-background-color: #00BCD4;
+}
+
+.fondo{
+    -fx-background-color: -fx-backGraundColor;
+}
+
+.taskTittle{
+    -fx-text-fill: #0c0606;
+    -fx-font-size: 14px;
+
+}
+
+.projectTittle{
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.taskDetails{
+    -fx-text-fill: #08163c;
+    -fx-font-size: 10px;
+
+}
+.tittle{
+    -fx-text-fill: -fx-tittle-color;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.subtittle{
+    -fx-text-fill: -fx-tittle-color;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.dark-subtittle{
+    -fx-text-fill: #011c30;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.combo-box{
+    -fx-border-color:  -fx-combobox-color;
+    -fx-font-size: 12px;
+    -fx-border-radius: 0.2;
+    -fx-prompt-text-fill:  #E0E0E0;
+
+}
+
+.paneProyecto{
+    -fx-border-color: #055558;
+}
+
+.text-field{
+    -fx-border-radius: 0.2;
+    -fx-border-color:-fx-textfield-color ;
+}
+
+.jfx-combo-box {
+    -fx-background-color:  PINK;
+}
+
+.jfx-combo-box .label {
+    -fx-background-color:  WHITE;
+    -fx-text-fill: #ff0000;
 }

@@ -6,17 +6,27 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="545.0" prefWidth="626.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="una.examengrupo3.controller.RangoColoresController">
+<AnchorPane prefHeight="602.0" prefWidth="666.0" styleClass="fondo" stylesheets="@tareas.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="una.examengrupo3.controller.RangoColoresController">
    <children>
-      <PieChart fx:id="pieChartColor" layoutX="55.0" layoutY="99.0" legendVisible="false" title="Colores de Tareas" />
-      <TextField fx:id="txtStart" editable="false" layoutX="125.0" layoutY="37.0" prefHeight="26.0" prefWidth="86.0" promptText="de" text="0" />
-      <TextField fx:id="txtHasta" layoutX="249.0" layoutY="38.0" prefHeight="26.0" prefWidth="86.0" promptText="hasta" />
-      <ColorPicker fx:id="colorPicker" layoutX="364.0" layoutY="42.0" />
-      <Button layoutX="497.0" layoutY="39.0" mnemonicParsing="false" onAction="#addRangeOnAction" text="Agregar Rango" />
-      <Label layoutX="87.0" layoutY="42.0" text="De" />
-      <Label layoutX="216.0" layoutY="43.0" text="\%" />
-      <Label layoutX="342.0" layoutY="40.0" prefHeight="26.0" prefWidth="15.0" text="\%" />
-      <Button layoutX="305.0" layoutY="511.0" mnemonicParsing="false" onAction="#saveOnAction" text="Guardar" />
+      <PieChart fx:id="pieChartColor" layoutX="87.0" layoutY="147.0" legendVisible="false" prefHeight="398.0" prefWidth="491.0" title="Paleta de Colores" />
+      <Button fx:id="saveButton" alignment="CENTER" layoutX="228.0" layoutY="554.0" mnemonicParsing="false" onAction="#saveOnAction" prefHeight="26.0" prefWidth="70.0" text="Guardar" />
+      <Pane fx:id="paneEdit" layoutX="34.0" layoutY="65.0" prefHeight="59.0" prefWidth="582.0">
+         <children>
+            <Button fx:id="addRankButton" alignment="CENTER" layoutX="460.0" layoutY="10.0" mnemonicParsing="false" onAction="#addRankOnAction" prefHeight="35.0" prefWidth="108.0" text="Agregar Rango" />
+            <ColorPicker fx:id="colorPicker" layoutX="323.0" layoutY="14.0" prefHeight="26.0" prefWidth="100.0" promptText="Color" />
+            <Label layoutX="276.0" layoutY="14.0" prefHeight="26.0" prefWidth="15.0" styleClass="subtittle" text="\%" />
+            <TextField fx:id="txtHasta" alignment="CENTER" layoutX="210.0" layoutY="15.0" prefHeight="26.0" prefWidth="56.0" promptText="Hasta" />
+            <Label layoutX="130.0" layoutY="21.0" styleClass="subtittle" text="\%" />
+            <Label disable="true" layoutX="28.0" layoutY="18.0" styleClass="subtittle" text="De" />
+            <Label layoutX="168.0" layoutY="19.0" styleClass="subtittle" text="Hasta" />
+            <TextField fx:id="txtStart" alignment="CENTER" editable="false" layoutX="65.0" layoutY="16.0" prefHeight="26.0" prefWidth="56.0" promptText="de" text="0" />
+         </children>
+      </Pane>
+      <Button fx:id="editButton" alignment="CENTER" layoutX="482.0" layoutY="554.0" mnemonicParsing="false" onAction="#editButtonOnAction" prefHeight="26.0" prefWidth="70.0" text="Editar" />
+      <Button fx:id="cancelButton" alignment="CENTER" layoutX="325.0" layoutY="554.0" mnemonicParsing="false" onAction="#cancelEdtionOnAction" prefHeight="26.0" prefWidth="86.0" text="Cancelar" />
+      <Button fx:id="closeButton" alignment="CENTER" layoutX="566.0" layoutY="554.0" mnemonicParsing="false" onAction="#closeButtonOnAction" prefHeight="26.0" prefWidth="70.0" text="Salir" />
+      <Label layoutX="109.0" layoutY="21.0" styleClass="tittle" text="COLOR DE TAREAS SEGÚN PORCENTAJE DE AVANCE" />
    </children>
 </AnchorPane>

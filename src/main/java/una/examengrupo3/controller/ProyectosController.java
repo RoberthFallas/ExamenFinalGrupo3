@@ -32,10 +32,7 @@ import una.examengrupo3.model.Rango;
 import una.examengrupo3.model.TareaDTO;
 import una.examengrupo3.service.ProyectoService;
 import una.examengrupo3.service.TareaService;
-import una.examengrupo3.util.AppContext;
-import una.examengrupo3.util.FlowController;
-import una.examengrupo3.util.Mensaje;
-import una.examengrupo3.util.Respuesta;
+import una.examengrupo3.util.*;
 
 public class ProyectosController extends Controller implements Initializable {
 
@@ -48,7 +45,7 @@ public class ProyectosController extends Controller implements Initializable {
     public DatePicker dateFinal;
     public Slider sliderAvance;
     public Slider sliderUrgencia;
-    public Slider sliderPrioridad;
+    //public Slider sliderPrioridad;
     public Slider sliderImportancia;
     public Label labelPrioridadPercent;
     public Label labelImportenciaPercent;
@@ -68,6 +65,8 @@ public class ProyectosController extends Controller implements Initializable {
     public Pane paneInformation;
     public Pane generalInfoPane;
     public ComboBox<String> comboColors;
+    public Button showAllButton;
+    public Label txtPrioridad;
     private List<Rango> rangos;
 
     private boolean isEditionProjectMode = false;
@@ -231,9 +230,6 @@ public class ProyectosController extends Controller implements Initializable {
         labelUrgenciaPercent.textProperty().bind( Bindings.format(
                 "%.2f", sliderUrgencia.valueProperty()
         ));
-        labelPrioridadPercent.textProperty().bind( Bindings.format(
-                "%.2f", sliderPrioridad.valueProperty()
-        ));
         labelAvancePercent.textProperty().bind( Bindings.format(
                 "%.2f", sliderAvance.valueProperty()
         ));
@@ -251,7 +247,7 @@ public class ProyectosController extends Controller implements Initializable {
         dateFinal.setValue(tareaSelected.getFechaFinalizacion().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         sliderImportancia.setValue(tareaSelected.getImportancia());
         // sliderPrioridad.valueProperty().bind(sliderImportancia.valueProperty() * sliderUrgencia.valueProperty());
-        sliderPrioridad.setValue(tareaSelected.getUrgencia() * tareaSelected.getUrgencia());
+        txtPrioridad.setText(String.valueOf((tareaSelected.getUrgencia() * tareaSelected.getUrgencia())+"%"));
         sliderUrgencia.setValue(tareaSelected.getUrgencia());
         sliderAvance.setValue(tareaSelected.getPorcentajeAvance());
         showDetailsOfSelectedProject();
@@ -273,9 +269,10 @@ public class ProyectosController extends Controller implements Initializable {
         hboxTitulos.setAlignment(Pos.CENTER);
         HBox.setHgrow(hboxTitulos, Priority.ALWAYS);
         Label taskTitleLabel = new Label(tarea.getDescripcion());
-
+        taskTitleLabel.getStyleClass().add("taskTittle");
         hboxTitulos.getChildren().addAll(taskTitleLabel,sep);
         Label estado = new Label("Importancia: " + tarea.getImportancia().toString() +  "     %"+ tarea.getPorcentajeAvance()) ;
+        estado.getStyleClass().add("taskDetails");
         hBoxEstado.getChildren().add(estado);
         hBox = setStyleByPercent(hBox, tarea.getPorcentajeAvance());
         vBox.getChildren().addAll(hboxTitulos,hBoxEstado);
@@ -304,6 +301,7 @@ public class ProyectosController extends Controller implements Initializable {
         HBox.setHgrow(separator, Priority.ALWAYS);
         hBox.setAlignment(Pos.CENTER);
         Label taskTitleLabel = new Label(title);
+        taskTitleLabel.getStyleClass().add("projectTittle");
         hBox.getChildren().addAll(taskTitleLabel, separator);
 
         return  hBox;
@@ -331,7 +329,7 @@ public class ProyectosController extends Controller implements Initializable {
         if(respuesta.getEstado()){
             projects = (List<ProyectoDTO>) respuesta.getResultado("data");
             AppContext.getInstance().set("projects", projects);
-            showDataProjects = List.copyOf(projects);
+            showDataProjects =projects;
 
         }else{
             new Mensaje().showModal(Alert.AlertType.INFORMATION, "Información", this.getStage(), "No se pudieron cargar los proyectos");
@@ -366,6 +364,7 @@ public class ProyectosController extends Controller implements Initializable {
        txtProjectName.setEditable(status);
        updateProjectButton.setVisible(status);
        cancelEdtionProjectButton.setVisible(status);
+       editProjectButton.setVisible(!status);
 
     }
 
@@ -433,7 +432,7 @@ public class ProyectosController extends Controller implements Initializable {
     }
 
     private void updateTaskInList(TareaDTO tarea){
-        sliderPrioridad.setValue(tarea.getUrgencia() * tarea.getUrgencia());
+        txtPrioridad.setText(String.valueOf((tarea.getUrgencia() * tarea.getUrgencia()))+ "%");
         showDataProjects.stream().filter(k -> projectSelected.getId() == k.getId()).findFirst().get().updateTask(tarea);
     }
 
@@ -548,6 +547,7 @@ public class ProyectosController extends Controller implements Initializable {
 
     public void settingsOnAction(ActionEvent actionEvent) {
         AppContext.getInstance().set("proyectosController", this);
+        AppContext.getInstance().set("rangos", rangos);
         FlowController.getInstance().goViewInWindowModal("RangoColores", this.getStage(),false);
     }
 
@@ -556,20 +556,17 @@ public class ProyectosController extends Controller implements Initializable {
         String color = comboColors.getSelectionModel().getSelectedItem();
 
         Optional<Rango> rango = rangos.stream().filter( r -> r.getColor().equals(color)).findFirst();
-        actualRange = rango.get();
-
-
-        showProjects();
-    }
-}
-class ColorRectCell extends ListCell<String>{
-    @Override
-    public void updateItem(String item, boolean empty){
-        super.updateItem(item, empty);
-        Rectangle rect = new Rectangle(120,18);
-        if(item != null){
-            rect.setFill(Color.web(item));
-            setGraphic(rect);
+        if(rango.isPresent()) {
+            actualRange = rango.get();
+            showProjects();
         }
+        showAllButton.setVisible(true);
+    }
+
+    public void showAllOnAction(ActionEvent actionEvent) {
+        actualRange = null;
+        comboColors.getSelectionModel().clearSelection();
+        showAllButton.setVisible(false);
+        showProjects();
     }
 }
