@@ -16,7 +16,7 @@ import una.examengrupo3.util.AppContext;
 /**
  * FXML Controller class
  *
- * @author rober
+ * @author roberth
  */
 public class VisualizadorSuperUnidController extends Controller implements Initializable {
 
@@ -51,8 +51,8 @@ public class VisualizadorSuperUnidController extends Controller implements Initi
     public void chargeData() {
         lblCodigo.setText("Código: " + sUnidad.getCodigo());
         lblNombre.setText("Nombre: " + sUnidad.getNombre());
-        lblExtencion.setText("Extención: " + sUnidad.getAreaMetrosCuadrados() + " metros cuadrados");
-        lblPoblacion.setText("Extención: " + sUnidad.getPoblacion() + " metros cuadrados");
+        lblExtencion.setText("Extención: " + sUnidad.getAreaMetrosCuadrados() + " metros cuadrados.");
+        lblPoblacion.setText("Extención: " + sUnidad.getPoblacion() + " habitantes.");
     }
 
 }

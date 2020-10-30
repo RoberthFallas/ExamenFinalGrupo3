@@ -49,5 +49,5 @@ public abstract class SuperUnidad {
     public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
-
+    
 }

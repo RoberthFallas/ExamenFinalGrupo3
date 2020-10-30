@@ -97,7 +97,7 @@ public class RestConector {
 
     private String convertToJson(Object obj) {
         converter = converter != null ? converter : new Gson();
-        return new Gson().toJson(obj);
+        return converter.toJson(obj);
     }
 
 }

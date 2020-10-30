@@ -41,4 +41,9 @@ public class TipoUnidadDto {
         this.unidades = unidades;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
 }

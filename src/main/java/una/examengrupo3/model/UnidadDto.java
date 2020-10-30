@@ -28,6 +28,14 @@ public class UnidadDto extends SuperUnidad {
         return this.areaMetrosCuadrados;
     }
 
+    public void setPoblacion(Long value) {
+        this.poblacion = value;
+    }
+
+    public void setAreaMetrosCuadrados(float value) {
+        this.areaMetrosCuadrados = value;
+    }
+
     public TipoUnidadDto getTipoUnidad() {
         return tipoUnidad;
     }

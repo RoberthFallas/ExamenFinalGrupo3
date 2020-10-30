@@ -24,6 +24,7 @@ import una.examengrupo3.model.CantonDto;
 import una.examengrupo3.model.DistritoDto;
 import una.examengrupo3.model.ProvinciaDto;
 import una.examengrupo3.model.SuperUnidad;
+import una.examengrupo3.model.UnidadDto;
 import una.examengrupo3.services.ProvinciaService;
 import una.examengrupo3.util.AppContext;
 import una.examengrupo3.util.FlowController;
@@ -72,6 +73,7 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
     @FXML
     public void onActionNivelAnterior(ActionEvent event) {
         if (profunidadActual > 0) {
+            plusButton.setDisable(false);
             hbLocationCharger.getChildren().remove(profunidadActual - 1);
             profunidadActual--;
             selectedRout.pop();
@@ -154,7 +156,11 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
     }
 
     public void nuevaUnidad() {
-
+        UnidadDto unid = new UnidadDto();
+        unid.setDistrito((DistritoDto) selectedRout.peek().getsUnidad());
+        AppContext.getInstance().set("unid", unid);
+        AppContext.getInstance().set("visualArb", this);
+        FlowController.getInstance().goViewInWindowModal("EditorUnidad", this.getStage(), false);
     }
 
     public void putActionButonToCloud(SUCharger cloud) {
@@ -162,12 +168,16 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
         action.setOnAction(event -> {
             AppContext.getInstance().set("toShowDetall", cloud.getsUnidad());
             FlowController.getInstance().<AnchorPane>chargeOn(apCharger, "VisualizadorSuperUnid");
-            hbLocationCharger.getChildren().add(new Label(" > " + cloud.getsUnidad().getNombre()));
-            selectedRout.push(cloud);
-            List<SUCharger> chargerList = new ArrayList();
-            cloud.getsUnidad().getAuxSuperUnidadList().forEach(sUnid -> chargerList.add(new SUCharger(sUnid)));
-            goToNewLevel(chargerList, true);
-            changeTreeTittle();
+            if (!(cloud.getsUnidad() instanceof UnidadDto)) {
+                hbLocationCharger.getChildren().add(new Label(" > " + cloud.getsUnidad().getNombre()));
+                selectedRout.push(cloud);
+                List<SUCharger> chargerList = new ArrayList();
+                cloud.getsUnidad().getAuxSuperUnidadList().forEach(sUnid -> chargerList.add(new SUCharger(sUnid)));
+                goToNewLevel(chargerList, true);
+                changeTreeTittle();
+            }else{
+                plusButton.setDisable(true);
+            }
         });
         cloud.getChildren().add(action);
         action.setLayoutX(110);

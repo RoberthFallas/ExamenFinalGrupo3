@@ -15,7 +15,7 @@ import java.util.List;
 public class DistritoDto extends SuperUnidad {
 
     private CantonDto canton;
-    private List<DistritoDto> unidades;
+    private List<UnidadDto> unidades;
 
     @Override
     public Long getPoblacion() {
@@ -43,11 +43,11 @@ public class DistritoDto extends SuperUnidad {
         this.canton = canton;
     }
 
-    public void setUnidades(List<DistritoDto> unidades) {
+    public void setUnidades(List<UnidadDto> unidades) {
         this.unidades = unidades;
     }
 
-    public List<DistritoDto> getUnidades() {
+    public List<UnidadDto> getUnidades() {
         return unidades;
     }
 
