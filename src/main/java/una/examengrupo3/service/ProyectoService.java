@@ -36,6 +36,29 @@ public class ProyectoService {
         }
     }
 
+    public Respuesta getByPorcentajeBetween(long start, long end){
+        try {
+            RequestHTTP requestHTTP = new RequestHTTP();
+            HttpResponse respuesta = requestHTTP.get("http://localhost:2304/proyectos/getByPorcentajeTareas/"+ start+ "/"+end);
+            System.out.println(respuesta.body().toString());
+            if (requestHTTP.getStatus()!=200) {
+                if (respuesta.statusCode() == 204) {
+                    return new Respuesta(false, "Parece que no hay resultados en la búsqueda", String.valueOf(requestHTTP.getStatus()));
+                }
+                return new Respuesta(false, "Parece que algo ha salido mal. Si el problema persiste solicita ayuda del encargado del sistema." ,String.valueOf(requestHTTP.getStatus()));
+            }
+
+            List<ProyectoDTO> proyectos = gson.fromJson(respuesta.body().toString(), new TypeToken<List<ProyectoDTO>>() {}.getType());
+            return new Respuesta(true, "", "", "data", proyectos);
+
+        } catch (Exception ex) {
+            System.out.println("ha ocurrido un error");
+            return new Respuesta(false, "Ha ocurrido un error al establecer comunicación con el servidor.", ex.getMessage());
+        }
+    }
+
+
+
     public Respuesta create(ProyectoDTO proyectoDto){
         try {
             RequestHTTP requestHTTP = new RequestHTTP();
@@ -81,7 +104,7 @@ public class ProyectoService {
     public Respuesta delete(ProyectoDTO proyectoDto){
         try {
             RequestHTTP requestHTTP = new RequestHTTP();
-            HttpResponse respuesta = requestHTTP.delete("http://localhost:2304/proyectos/delete", gson.toJson(proyectoDto));
+            HttpResponse respuesta = requestHTTP.delete("http://localhost:2304/proyectos/delete/"+proyectoDto.getId());
             System.out.println("respuesta: " + respuesta.body().toString());
             if (requestHTTP.getStatus()!=200) {
                 if (respuesta.statusCode() == 204) {

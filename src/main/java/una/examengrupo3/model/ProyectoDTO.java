@@ -52,10 +52,18 @@ public class ProyectoDTO {
         return tareas;
     }
 
+    public  void setTareas(List<TareaDTO> tareas){
+        this.tareas = tareas;
+    }
+
     public void updateTask(TareaDTO tareaDTO){
        tareas.forEach(t -> {
            if(t.getId() == tareaDTO.getId()) t = tareaDTO;
        });
+    }
+
+    public void deleteTask(TareaDTO tareaDTO){
+        tareas.remove(tareaDTO);
     }
 
 

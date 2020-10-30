@@ -57,12 +57,12 @@ public class TareaService {
             return new Respuesta(false, "Ha ocurrido un error al establecer comunicación con el servidor.", ex.getMessage());
         }
     }
-    
+
 
     public Respuesta delete(TareaDTO tareaDto){
         try {
             RequestHTTP requestHTTP = new RequestHTTP();
-            HttpResponse respuesta = requestHTTP.delete("http://localhost:2304/tareas/delete", gson.toJson(tareaDto));
+            HttpResponse respuesta = requestHTTP.delete("http://localhost:2304/tareas/delete/"+tareaDto.getId());
             System.out.println("respuesta: " + respuesta.body().toString());
             if (requestHTTP.getStatus()!=200) {
                 if (respuesta.statusCode() == 204) {

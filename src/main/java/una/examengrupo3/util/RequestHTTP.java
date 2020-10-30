@@ -66,7 +66,7 @@ public class RequestHTTP {
         return respuesta;
     }
 
-    public HttpResponse delete(String url, String body) {
+    public HttpResponse delete(String url) {
         try {
             request(url);
             requestBuilder.DELETE();
