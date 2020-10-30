@@ -67,6 +67,13 @@
     -fx-background-color: -fx-button-hover-color;
 }
 
+.cancelButton{
+    -fx-background-color: #5e5e69
+}
+.cancelButton:hover{
+    -fx-background-color: -fx-button-hover-color;
+}
+
 
 .button:hover{
     -fx-background-color: -fx-button-hover-color;

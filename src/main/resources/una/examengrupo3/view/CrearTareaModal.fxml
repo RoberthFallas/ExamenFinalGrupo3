@@ -14,9 +14,9 @@
          <children>
             <Label layoutX="48.0" layoutY="51.0" text="Descripción" />
             <TextField fx:id="txtDescripcion" layoutX="146.0" layoutY="43.0" prefHeight="32.0" prefWidth="267.0" />
-            <DatePicker fx:id="dateInicio" layoutX="146.0" layoutY="110.0" prefHeight="32.0" prefWidth="267.0" />
+            <DatePicker fx:id="dateInicio" editable="false" layoutX="146.0" layoutY="110.0" prefHeight="32.0" prefWidth="267.0" />
             <Label layoutX="48.0" layoutY="116.0" text="Fecha inicio" />
-            <DatePicker fx:id="dateFinal" layoutX="146.0" layoutY="170.0" prefHeight="32.0" prefWidth="267.0" />
+            <DatePicker fx:id="dateFinal" editable="false" layoutX="146.0" layoutY="170.0" prefHeight="32.0" prefWidth="267.0" />
             <Label layoutX="51.0" layoutY="177.0" text="Fecha final" />
             <Label layoutX="51.0" layoutY="240.0" text="Importancia" />
             <Label layoutX="51.0" layoutY="299.0" text="Urgencia" />

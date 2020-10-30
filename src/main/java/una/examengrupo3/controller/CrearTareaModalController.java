@@ -50,7 +50,6 @@ public class CrearTareaModalController  extends Controller implements Initializa
         tareaDTO.setImportancia((long) sliderImportancia.getValue());
         tareaDTO.setUrgencia((long)sliderUrgencia.getValue());
         tareaDTO.setPorcentajeAvance((long)sliderAvance.getValue());
-        System.out.println(projectSelected.getId());
         tareaDTO.setProyecto(projectSelected);
 
         return tareaDTO;
@@ -104,7 +103,7 @@ public class CrearTareaModalController  extends Controller implements Initializa
               TareaDTO createdTask = (TareaDTO) respuesta.getResultado("data");
               AppContext.getInstance().set("taskCreated",createdTask );
               refreshBack();
-              new Mensaje().showModal(Alert.AlertType.WARNING, "Información", this.getStage(), "Se ha creado la tarea con éxito");
+              new Mensaje().showModal(Alert.AlertType.INFORMATION, "Información", this.getStage(), "Se ha creado la tarea con éxito");
               clearData();
               this.getStage().close();
           }

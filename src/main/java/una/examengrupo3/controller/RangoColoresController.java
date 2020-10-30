@@ -4,8 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.chart.Chart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
@@ -18,7 +16,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 public class RangoColoresController  extends  Controller implements Initializable {
     public PieChart pieChartColor;
@@ -58,7 +55,7 @@ public class RangoColoresController  extends  Controller implements Initializabl
 
     private void   makePieChart(Rango rango){
         String style = "-fx-pie-color:" + rango.getColor() + ";";
-        PieChart.Data pieChart = new PieChart.Data(rango.getRangoInWords(), rango.getPercentInRange());
+        PieChart.Data pieChart = new PieChart.Data(rango.getRangoInWords(), rango.getPercentInRank());
         observableList.add(pieChart);
         pieChartColor.setData(observableList);
         pieChart.getNode().setStyle(style);
@@ -102,12 +99,10 @@ public class RangoColoresController  extends  Controller implements Initializabl
         if(isValidData()){
             Rango rango = new Rango(Long.valueOf(txtStart.getText()), Long.valueOf(txtHasta.getText()), toRGBCode(colorPicker.getValue()));
 
-            porcentajeRestante -= rango.getPercentInRange()+1;;
+            porcentajeRestante -= rango.getPercentInRank()+1;;
             newRanks.add(rango);
             makePieChart(rango);
-            System.out.println(porcentajeRestante);
             if(porcentajeRestante>0){
-                System.out.println("Entra");
                 makeNoAsignedPieChart();
                 txtStart.setText(String.valueOf(rango.getHasta()+1));
                 txtHasta.setText("");

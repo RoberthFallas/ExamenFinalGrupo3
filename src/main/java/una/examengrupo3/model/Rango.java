@@ -12,7 +12,7 @@ public class Rango {
         this.color = color;
     }
 
-    public long getPercentInRange(){
+    public long getPercentInRank(){
         return hasta - desde;
     }
 
@@ -20,7 +20,7 @@ public class Rango {
         return color;
     }
 
-    public boolean isInRange(long percent){
+    public boolean isInRank(long percent){
         return percent >= desde && percent <=hasta;
     }
 

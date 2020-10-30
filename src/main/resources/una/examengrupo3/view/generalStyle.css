@@ -43,7 +43,8 @@ and open the template in the editor.
     -fx-background-color: -fx-button-color;
     -fx-font-size: 12px;
     -fx-border-radius: 0.2;
-    -fx-text-fill:  #E0E0E0;
+    -fx-text-fill: #ffffff;
+
 }
 
 .button:hover{
