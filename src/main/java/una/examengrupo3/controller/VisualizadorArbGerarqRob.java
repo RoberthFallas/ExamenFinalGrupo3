@@ -20,7 +20,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import una.examengrupo3.model.CantonDto;
+import una.examengrupo3.model.DistritoDto;
 import una.examengrupo3.model.ProvinciaDto;
+import una.examengrupo3.model.SuperUnidad;
+import una.examengrupo3.model.UnidadDto;
 import una.examengrupo3.services.ProvinciaService;
 import una.examengrupo3.util.AppContext;
 import una.examengrupo3.util.FlowController;
@@ -47,6 +51,8 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
     public HBox hbLocationCharger;
     private Integer profunidadActual;
     private Stack<List<SUCharger>> niveles;
+    private final Stack<SUCharger> selectedRout = new Stack();
+    private SUCharger toDelete;
 
     /**
      * Initializes the controller class.
@@ -61,15 +67,17 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
     @Override
     public void initialize() {
         clearUI();
-        cargarProvincias(false);
+        cargarProvincias();
     }
 
     @FXML
     public void onActionNivelAnterior(ActionEvent event) {
         if (profunidadActual > 0) {
-            hbLocationCharger.getChildren().remove(profunidadActual.intValue());
+            hbLocationCharger.getChildren().remove(profunidadActual - 1);
             profunidadActual--;
-            goToNewLevel(niveles.pop(), false);
+            selectedRout.pop();
+            niveles.pop();
+            goToNewLevel(niveles.peek(), false);
         } else {
             FlowController.getInstance().goBack();
         }
@@ -84,11 +92,17 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
             case 1:
                 nuevoCanton();
                 break;
+            case 2:
+                nuevoDistrito();
+                break;
+            default:
+                nuevaUnidad();
+                break;
         }
     }
 
-    public void goToNewLevel(List<SUCharger> suList, boolean save) {
-        if (save) {
+    public void goToNewLevel(List<SUCharger> suList, boolean saveLevel) {
+        if (saveLevel) {
             niveles.push(suList);
             profunidadActual++;
         }
@@ -100,13 +114,7 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
 
     }
 
-    public Label newSubTittle(String text) {
-        Label toRet = new Label(text);
-        toRet.getStyleClass().add("subtittle");
-        return toRet;
-    }
-
-    public void cargarProvincias(boolean refreshMode) {
+    public void cargarProvincias() {
         Thread th = new Thread(() -> {
             Respuesta resp = new ProvinciaService().findAll();
             Platform.runLater(() -> {
@@ -114,7 +122,7 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
                     List<ProvinciaDto> provincias = (List) resp.getResultado("data");
                     List<SUCharger> suList = new ArrayList();
                     provincias.forEach(prov -> suList.add(new SUCharger(prov)));
-                    goToNewLevel(suList, !refreshMode);
+                    goToNewLevel(suList, true);
                     changeTreeTittle();
                 } else {
                     new Mensaje().show(AlertType.WARNING, "Atención", resp.getMensaje());
@@ -127,11 +135,15 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
     public void nuevaProvincia() {
         AppContext.getInstance().set("prov", new ProvinciaDto());
         AppContext.getInstance().set("visualArb", this);
-        FlowController.getInstance().goViewInWindowModal("EditorProvCantDistr", this.getStage(), false);
+        FlowController.getInstance().goViewInWindowModal("EditorProvincia", this.getStage(), false);
     }
 
     public void nuevoCanton() {
-
+        CantonDto cant = new CantonDto();
+        cant.setProvincia((ProvinciaDto) selectedRout.peek().getsUnidad());
+        AppContext.getInstance().set("cant", cant);
+        AppContext.getInstance().set("visualArb", this);
+        FlowController.getInstance().goViewInWindowModal("EditorCanton", this.getStage(), false);
     }
 
     public void nuevoDistrito() {
@@ -147,6 +159,12 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
         action.setOnAction(event -> {
             AppContext.getInstance().set("toShowDetall", cloud.getsUnidad());
             FlowController.getInstance().<AnchorPane>chargeOn(apCharger, "VisualizadorSuperUnid");
+            hbLocationCharger.getChildren().add(new Label(" > " + cloud.getsUnidad().getNombre()));
+            selectedRout.push(cloud);
+            List<SUCharger> chargerList = new ArrayList();
+            cloud.getsUnidad().getAuxSuperUnidadList().forEach(sUnid -> chargerList.add(new SUCharger(sUnid)));
+            goToNewLevel(chargerList, true);
+            changeTreeTittle();
         });
         cloud.getChildren().add(action);
         action.setLayoutX(110);
@@ -176,6 +194,24 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
                 lblTreeLevel.setText("Unidades");
                 break;
         }
+    }
+
+    public void addCloudFromExterior(SuperUnidad superU) {
+        SUCharger suc = new SUCharger(superU);
+        treeLevelCharger.getChildren().forEach(act -> {    //Revisa la lista para asegurarse de que el nuevo dato no está repetido
+            if (act instanceof SUCharger) {
+                if (((SUCharger) act).getsUnidad().getId().equals(superU.getId())) {
+                    toDelete = (SUCharger) act;
+                }
+            }
+        });
+        if (toDelete != null) {
+            treeLevelCharger.getChildren().remove(toDelete);
+            niveles.peek().remove(toDelete);
+        }
+        toDelete = null;
+        niveles.peek().add(suc);
+        treeLevelCharger.getChildren().add(suc);
     }
 
 }

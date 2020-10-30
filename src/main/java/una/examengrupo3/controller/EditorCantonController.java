@@ -14,8 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import una.examengrupo3.model.ProvinciaDto;
-import una.examengrupo3.services.ProvinciaService;
+import una.examengrupo3.model.CantonDto;
+import una.examengrupo3.services.CantonService;
 import una.examengrupo3.util.AppContext;
 import una.examengrupo3.util.Mensaje;
 import una.examengrupo3.util.Respuesta;
@@ -25,15 +25,15 @@ import una.examengrupo3.util.Respuesta;
  *
  * @author roberth
  */
-public class EditorProvCantDistrController extends Controller implements Initializable {
+public class EditorCantonController extends Controller implements Initializable {
 
-    public ProvinciaDto provincia;
     @FXML
     public Label tittle;
     @FXML
     public TextField txtNombre;
     @FXML
     public TextField txtCodigo;
+    public CantonDto canton;
 
     /**
      * Initializes the controller class.
@@ -43,19 +43,19 @@ public class EditorProvCantDistrController extends Controller implements Initial
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        windowFuntions();
     }
 
     @Override
     public void initialize() {
-        provincia = (ProvinciaDto) AppContext.getInstance().get("prov");
+        canton = (CantonDto) AppContext.getInstance().get("cant");
     }
 
     @FXML
     public void onActionGuradarCambios(ActionEvent event) {
         if (!txtCodigo.getText().isBlank() && !txtNombre.getText().isBlank()) {
             chargeDatos();
-            Respuesta resp = new ProvinciaService().create(provincia);
+            Respuesta resp = new CantonService().create(canton);
             if (resp.getEstado()) {
                 new Mensaje().show(Alert.AlertType.INFORMATION, "Ación exitosa", "Cambios guardados");
                 updateBack();
@@ -65,6 +65,16 @@ public class EditorProvCantDistrController extends Controller implements Initial
         } else {
             new Mensaje().show(Alert.AlertType.INFORMATION, "Observa con atención", "Parece que alguno de los campos ha quedado vacío.");
         }
+    }
+
+    private void chargeDatos() {
+        canton.setCodigo(Integer.valueOf(txtCodigo.getText()));
+        canton.setNombre(txtNombre.getText().trim());
+    }
+
+    private void updateBack() {
+        VisualizadorArbGerarqRob va  = (VisualizadorArbGerarqRob) AppContext.getInstance().get("visualArb");
+        va.addCloudFromExterior(canton);
     }
 
     public void windowFuntions() {
@@ -78,20 +88,7 @@ public class EditorProvCantDistrController extends Controller implements Initial
     public void clearContext() {
         txtCodigo.setText("");
         txtNombre.setText("");
-        provincia = null;
+        canton = null;
     }
-
-    public void chargeDatos() {
-        provincia.setCodigo(Integer.valueOf(txtCodigo.getText()));
-        provincia.setNombre(txtNombre.getText().trim());
-    }
-
-    public void updateBack() {
-        VisualizadorArbGerarqRob va  = (VisualizadorArbGerarqRob) AppContext.getInstance().get("visualArb");
-        va.clearUI();
-        va.cargarProvincias(true);
-    }
-    
-    
 
 }

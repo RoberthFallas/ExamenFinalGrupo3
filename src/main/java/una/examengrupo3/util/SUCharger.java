@@ -7,6 +7,7 @@ package una.examengrupo3.util;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import una.examengrupo3.model.CantonDto;
 import una.examengrupo3.model.ProvinciaDto;
 import una.examengrupo3.model.SuperUnidad;
 
@@ -35,13 +36,7 @@ public class SUCharger extends AnchorPane {
         codigo.setLayoutY(40);
         this.setPrefWidth(160);
         this.setPrefHeight(60);
-        styleSelect();
-    }
-
-    public void styleSelect() {
-        if (this.sUnidad instanceof ProvinciaDto) {
-            this.getStyleClass().add("SU-Nube-provincia");
-        }
+        this.getStyleClass().add("SU-Nube-provincia");
     }
 
     public SuperUnidad getsUnidad() {

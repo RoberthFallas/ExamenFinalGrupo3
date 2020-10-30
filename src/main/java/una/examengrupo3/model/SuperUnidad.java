@@ -5,6 +5,8 @@
  */
 package una.examengrupo3.model;
 
+import java.util.List;
+
 /**
  *
  * @author roberth
@@ -16,10 +18,13 @@ public abstract class SuperUnidad {
     protected String nombre;
     protected Float areaMetrosCuadrados;
     protected Long poblacion;
+    protected List<SuperUnidad> auxSuperUnidadList;
 
     public abstract Long getPoblacion();
 
     public abstract Float getAreaMetrosCuadrados();
+
+    public abstract List<SuperUnidad> getAuxSuperUnidadList();
 
     public String getNombre() {
         return nombre;

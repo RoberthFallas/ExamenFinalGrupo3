@@ -106,7 +106,7 @@ and open the template in the editor.
     -fx-background-color:-fx-nube-hover-color;
 }
 
-.SU-Nube-provincia{
+.SU-Nube-color{
     -fx-background-color:-fx-nube-color;
     -fx-background-radius: 10;
     -fx-effect: dropshadow(three-pass-box, #37474F, 7, 0, -1, 0);
@@ -118,4 +118,10 @@ and open the template in the editor.
 
 .SUCharger .viewport {
     -fx-background-color: -fx-semitrasparent-glass-color;
+}
+
+.directionCharger > Label{
+    -fx-text-fill: -fx-tittle-color;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
 }

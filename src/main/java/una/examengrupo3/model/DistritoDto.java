@@ -5,6 +5,7 @@
  */
 package una.examengrupo3.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,8 +26,10 @@ public class DistritoDto extends SuperUnidad {
     }
 
     @Override
+    @SuppressWarnings("null")
     public Float getAreaMetrosCuadrados() {
         if (this.areaMetrosCuadrados == null) {
+            areaMetrosCuadrados = areaMetrosCuadrados == null ? 0f : areaMetrosCuadrados;
             unidades.forEach(unidad -> this.areaMetrosCuadrados += unidad.getAreaMetrosCuadrados());
         }
         return this.areaMetrosCuadrados;
@@ -46,6 +49,18 @@ public class DistritoDto extends SuperUnidad {
 
     public List<DistritoDto> getUnidades() {
         return unidades;
+    }
+
+    @Override
+    public List<SuperUnidad> getAuxSuperUnidadList() {
+        if (unidades == null) {
+            unidades = new ArrayList();
+        }
+        if (this.auxSuperUnidadList == null) {
+            auxSuperUnidadList = new ArrayList();
+            unidades.forEach(unid -> auxSuperUnidadList.add(unid));
+        }
+        return auxSuperUnidadList;
     }
 
 }

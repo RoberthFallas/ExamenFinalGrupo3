@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -24,10 +25,14 @@
       <Label fx:id="lblTreeLevel" layoutX="82.0" layoutY="8.0" styleClass="tittle" text="Cargando..." AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="8.0" />
       <Button id="back-button" layoutX="7.0" layoutY="4.0" mnemonicParsing="false" onAction="#onActionNivelAnterior" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="4.0" />
       <AnchorPane fx:id="apCharger" layoutX="496.0" layoutY="208.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
-      <HBox fx:id="hbLocationCharger" alignment="CENTER_LEFT" layoutX="308.0" layoutY="-28.0" prefHeight="40.0" styleClass="air-glass-efect-color" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox fx:id="hbLocationCharger" alignment="CENTER_LEFT" layoutX="308.0" layoutY="-28.0" prefHeight="40.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
             <Insets left="25.0" />
          </padding>
+         <styleClass>
+            <String fx:value="air-glass-efect-color" />
+            <String fx:value="directionCharger" />
+         </styleClass>
       </HBox>
    </children>
 </AnchorPane>

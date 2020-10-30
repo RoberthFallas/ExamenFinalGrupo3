@@ -6,6 +6,7 @@
 package una.examengrupo3.model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -49,6 +50,11 @@ public class UnidadDto extends SuperUnidad {
 
     public void setFecha_actualizacion(Date fecha_actualizacion) {
         this.fecha_actualizacion = fecha_actualizacion;
+    }
+
+    @Override
+    public List<SuperUnidad> getAuxSuperUnidadList() {
+        throw new UnsupportedOperationException("No necesario para este tipo de dato"); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
