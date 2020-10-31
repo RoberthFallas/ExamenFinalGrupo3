@@ -36,6 +36,7 @@ public class MainMenuController extends Controller implements Initializable {
 
     @FXML
     public void goMonicaModule(ActionEvent event) {
+        FlowController.getInstance().goView("proyectos");
     }
 
     @FXML
