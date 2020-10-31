@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="250.0" prefWidth="370.0" styleClass="fondo" stylesheets="@generalStyle.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="una.examengrupo3.controller.EditorCantonController">
+   <children>
+      <Label fx:id="tittle" layoutX="24.0" layoutY="24.0" styleClass="tittle" text="Cantón" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="24.0" />
+      <TextField fx:id="txtNombre" layoutX="54.0" layoutY="76.0" prefHeight="25.0" prefWidth="212.0" promptText="Nombre" AnchorPane.leftAnchor="54.0" AnchorPane.topAnchor="76.0" />
+      <TextField fx:id="txtCodigo" layoutX="54.0" layoutY="135.0" prefHeight="25.0" prefWidth="212.0" promptText="Código" AnchorPane.leftAnchor="54.0" AnchorPane.topAnchor="135.0" />
+      <Button layoutX="54.0" layoutY="175.0" mnemonicParsing="false" onAction="#onActionGuradarCambios" text="Guardar cambios" AnchorPane.leftAnchor="54.0" AnchorPane.topAnchor="175.0" />
+   </children>
+</AnchorPane>
