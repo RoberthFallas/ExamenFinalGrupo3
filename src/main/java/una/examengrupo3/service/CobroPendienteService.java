@@ -10,7 +10,7 @@ import com.google.gson.GsonBuilder;
 import java.net.http.HttpResponse;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import una.examengrupo3.model.CobroPendienteDTO;
+import una.examengrupo3.model.CobroPendienteDto;
 import una.examengrupo3.util.RequestHTTP;
 import una.examengrupo3.util.Respuesta;
 
@@ -23,7 +23,7 @@ public class CobroPendienteService {
     Gson gson = new GsonBuilder()
             .setDateFormat("yyy-MM-dd").create();
 
-    public Respuesta create(CobroPendienteDTO cobroPendienteDTO) {
+    public Respuesta create(CobroPendienteDto cobroPendienteDTO) {
         try {
             RequestHTTP requestHTTP = new RequestHTTP();
             HttpResponse respuesta = requestHTTP.post("http://localhost:1250/cobroPendiente/crear", gson.toJson(cobroPendienteDTO));
@@ -36,7 +36,7 @@ public class CobroPendienteService {
             }
 
             //List<AuthenticationResponse> users = new Gson().fromJson(respuesta.body().toString(), new TypeToken<>() {}.getType());
-            CobroPendienteDTO servicioMantenimientoDto = gson.fromJson(respuesta.body().toString(), CobroPendienteDTO.class);
+            CobroPendienteDto servicioMantenimientoDto = gson.fromJson(respuesta.body().toString(), CobroPendienteDto.class);
 //
             return new Respuesta(true, "", "", "data", servicioMantenimientoDto);
         } catch (Exception ex) {

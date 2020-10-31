@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author LordLalo
  */
-public class ClienteDTO {
+public class ClienteDto {
 
     private Long id;
     private String nombre;
@@ -22,16 +22,16 @@ public class ClienteDTO {
     private String apellido2;
     private String cedula;
     private Timestamp fechaNacimiento;
-    private List<MembresiaClienteDTO> membrebesiaCliente = new ArrayList<>();
+    private List<MembresiaClienteDto> membrebesiaCliente = new ArrayList<>();
 
-    public ClienteDTO() {
+    public ClienteDto() {
     }
 
-    public ClienteDTO(String n) {
+    public ClienteDto(String n) {
         nombre=n;
     }
 
-    public ClienteDTO(Long id, String nombre, String apellido1, String apellido2, String cedula, Timestamp fechaNacimiento) {
+    public ClienteDto(Long id, String nombre, String apellido1, String apellido2, String cedula, Timestamp fechaNacimiento) {
         this.id = id;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -89,11 +89,11 @@ public class ClienteDTO {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public List<MembresiaClienteDTO> getMembrebesiaCliente() {
+    public List<MembresiaClienteDto> getMembrebesiaCliente() {
         return membrebesiaCliente;
     }
 
-    public void setMembrebesiaCliente(List<MembresiaClienteDTO> membrebesiaCliente) {
+    public void setMembrebesiaCliente(List<MembresiaClienteDto> membrebesiaCliente) {
         this.membrebesiaCliente = membrebesiaCliente;
     }
 

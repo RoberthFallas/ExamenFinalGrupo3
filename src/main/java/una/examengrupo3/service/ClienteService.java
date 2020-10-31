@@ -12,7 +12,7 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import una.examengrupo3.model.ClienteDTO;
+import una.examengrupo3.model.ClienteDto;
 import una.examengrupo3.util.RequestHTTP;
 import una.examengrupo3.util.Respuesta;
 
@@ -35,7 +35,7 @@ public class ClienteService {
                 return new Respuesta(false, "Parece que algo ha salido mal. Si el problema persiste solicita ayuda del encargado del sistema." ,String.valueOf(requestHTTP.getStatus()));
             }
 
-            ClienteDTO clienteDto = gson.fromJson(respuesta.body().toString(), ClienteDTO.class);
+            ClienteDto clienteDto = gson.fromJson(respuesta.body().toString(), ClienteDto.class);
             return new Respuesta(true, "", "", "data", clienteDto);
 
         } catch (Exception ex) {
@@ -59,7 +59,7 @@ public class ClienteService {
             System.out.println(respuesta.body().toString());
 
             //UsuarioDto usuarioDto = g.fromJson(respuesta.body().toString(), UsuarioDto.class);
-            List<ClienteDTO> clienteDTO = new Gson().fromJson(respuesta.body().toString(), new TypeToken<List<ClienteDTO>>() {
+            List<ClienteDto> clienteDTO = new Gson().fromJson(respuesta.body().toString(), new TypeToken<List<ClienteDto>>() {
             }.getType());
             return new Respuesta(true, "", "", "data",clienteDTO);
 

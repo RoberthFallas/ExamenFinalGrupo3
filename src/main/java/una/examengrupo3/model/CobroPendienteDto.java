@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author LordLalo
  */
-public class CobroPendienteDTO {
+public class CobroPendienteDto {
 
     private Long id;
     private String anno;
@@ -19,13 +19,13 @@ public class CobroPendienteDTO {
     private Integer monto;
     private boolean estado;
     private String periodo;
-    private MembresiaClienteDTO membresiaClienteId;
+    private MembresiaClienteDto membresiaClienteId;
     private Integer cantidad;
 
-    public CobroPendienteDTO() {
+    public CobroPendienteDto() {
     }
 
-    public CobroPendienteDTO(String anno, Date fechaVencimiento, Integer monto, boolean estado, String periodo, MembresiaClienteDTO membresiaClienteId,Integer cantidad) {
+    public CobroPendienteDto(String anno, Date fechaVencimiento, Integer monto, boolean estado, String periodo, MembresiaClienteDto membresiaClienteId,Integer cantidad) {
 
         this.anno = anno;
         this.fechaVencimiento = fechaVencimiento;
@@ -92,11 +92,11 @@ public class CobroPendienteDTO {
         this.periodo = periodo;
     }
 
-    public MembresiaClienteDTO getMembresiaClienteId() {
+    public MembresiaClienteDto getMembresiaClienteId() {
         return membresiaClienteId;
     }
 
-    public void setMembresiaClienteId(MembresiaClienteDTO membresiaClienteId) {
+    public void setMembresiaClienteId(MembresiaClienteDto membresiaClienteId) {
         this.membresiaClienteId = membresiaClienteId;
     }
 

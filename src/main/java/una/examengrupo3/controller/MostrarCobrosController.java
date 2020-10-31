@@ -20,9 +20,9 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
-import una.examengrupo3.model.ClienteDTO;
-import una.examengrupo3.model.CobroPendienteDTO;
-import una.examengrupo3.model.MembresiaClienteDTO;
+import una.examengrupo3.model.ClienteDto;
+import una.examengrupo3.model.CobroPendienteDto;
+import una.examengrupo3.model.MembresiaClienteDto;
 import una.examengrupo3.service.ClienteService;
 import una.examengrupo3.service.CobroPendienteService;
 import una.examengrupo3.util.Mensaje;
@@ -36,10 +36,10 @@ import una.examengrupo3.util.Respuesta;
 public class MostrarCobrosController extends Controller implements Initializable {
 
     @FXML
-    public TreeTableView<ClienteDTO> treeTabla;
+    public TreeTableView<ClienteDto> treeTabla;
     @FXML
-    public TreeTableColumn<ClienteDTO, String> treeDatos;
-    List<ClienteDTO> listaClientes = new ArrayList<>();
+    public TreeTableColumn<ClienteDto, String> treeDatos;
+    List<ClienteDto> listaClientes = new ArrayList<>();
     @FXML
     public TextField txtCedula;
     @FXML
@@ -88,37 +88,37 @@ public class MostrarCobrosController extends Controller implements Initializable
         ClienteService clienteService = new ClienteService();
         Respuesta respuesta = clienteService.buscar(pNombre, pApellido1, pApellido2, pCedula);
         if (respuesta.getEstado()) {
-            listaClientes = (List<ClienteDTO>) respuesta.getResultado("data");
+            listaClientes = (List<ClienteDto>) respuesta.getResultado("data");
         }
-        ClienteDTO cl = new ClienteDTO();
+        ClienteDto cl = new ClienteDto();
         cl.setNombre("Cliente");
         TreeItem clientes = new TreeItem(cl);
-        for (ClienteDTO cliente : listaClientes) {
-            TreeItem persona = new TreeItem(new ClienteDTO(cliente.getNombre() + " " + cliente.getApellido1() + " " + cliente.getApellido2()));
-            TreeItem datosPersonales = new TreeItem(new ClienteDTO("Datos Personales"));
-            TreeItem cedula = new TreeItem(new ClienteDTO("Cédula: " + cliente.getCedula()));
+        for (ClienteDto cliente : listaClientes) {
+            TreeItem persona = new TreeItem(new ClienteDto(cliente.getNombre() + " " + cliente.getApellido1() + " " + cliente.getApellido2()));
+            TreeItem datosPersonales = new TreeItem(new ClienteDto("Datos Personales"));
+            TreeItem cedula = new TreeItem(new ClienteDto("Cédula: " + cliente.getCedula()));
             int anno = (cliente.getFechaNacimiento().getYear() + 1900);
             int mes = (cliente.getFechaNacimiento().getMonth() + 1);
             int dia = (cliente.getFechaNacimiento().getDay() + 4);
 
-            TreeItem fechaNacimiento = new TreeItem(new ClienteDTO("Fecha Nacimiento: " + dia + "/" + mes + "/" + anno));
+            TreeItem fechaNacimiento = new TreeItem(new ClienteDto("Fecha Nacimiento: " + dia + "/" + mes + "/" + anno));
             datosPersonales.getChildren().addAll(cedula, fechaNacimiento);
             persona.getChildren().add(datosPersonales);
-            List<MembresiaClienteDTO> listMembresiaCliente = new ArrayList<>();
-            listMembresiaCliente = (List<MembresiaClienteDTO>) cliente.getMembrebesiaCliente();
-            TreeItem membresiaTree = new TreeItem(new ClienteDTO("Membresias"));
-            for (MembresiaClienteDTO membresiaCliente : listMembresiaCliente) {
+            List<MembresiaClienteDto> listMembresiaCliente = new ArrayList<>();
+            listMembresiaCliente = (List<MembresiaClienteDto>) cliente.getMembrebesiaCliente();
+            TreeItem membresiaTree = new TreeItem(new ClienteDto("Membresias"));
+            for (MembresiaClienteDto membresiaCliente : listMembresiaCliente) {
 
-                TreeItem m = new TreeItem(new ClienteDTO(membresiaCliente.getMembresiaId().getServicioId().getNombre()));
-                List<CobroPendienteDTO> listaCobroPendiente = new ArrayList<>();
-                listaCobroPendiente = (List<CobroPendienteDTO>) membresiaCliente.getCobroPendiente();
-                for (CobroPendienteDTO cobroPendiente : listaCobroPendiente) {
+                TreeItem m = new TreeItem(new ClienteDto(membresiaCliente.getMembresiaId().getServicioId().getNombre()));
+                List<CobroPendienteDto> listaCobroPendiente = new ArrayList<>();
+                listaCobroPendiente = (List<CobroPendienteDto>) membresiaCliente.getCobroPendiente();
+                for (CobroPendienteDto cobroPendiente : listaCobroPendiente) {
                     int annoV = (cobroPendiente.getFechaVencimiento().getYear() + 1900);
                     int mesV = (cobroPendiente.getFechaVencimiento().getMonth() + 1);
                     int diaV = (cobroPendiente.getFechaVencimiento().getDay() + 4);
-                    TreeItem fecha = new TreeItem(new ClienteDTO("Fecha Vencimiento :" + diaV + "/" + mesV + "/" + annoV));
-                    TreeItem periodo = new TreeItem(new ClienteDTO("Periodo :" + cobroPendiente.getPeriodo()));
-                    TreeItem monto = new TreeItem(new ClienteDTO("Monto :" + cobroPendiente.getMonto()));
+                    TreeItem fecha = new TreeItem(new ClienteDto("Fecha Vencimiento :" + diaV + "/" + mesV + "/" + annoV));
+                    TreeItem periodo = new TreeItem(new ClienteDto("Periodo :" + cobroPendiente.getPeriodo()));
+                    TreeItem monto = new TreeItem(new ClienteDto("Monto :" + cobroPendiente.getMonto()));
                     fecha.getChildren().addAll(periodo, monto);
                     m.getChildren().addAll(fecha);
                 }
