@@ -49,6 +49,7 @@ public class ServicioDTO {
 
     public void setMembresia(List<MembresiaDTO> membresia) {
         this.membresia = membresia;
+       
     }
     
 }

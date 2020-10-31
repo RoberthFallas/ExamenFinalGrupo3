@@ -27,6 +27,10 @@ public class ClienteDTO {
     public ClienteDTO() {
     }
 
+    public ClienteDTO(String n) {
+        nombre=n;
+    }
+
     public ClienteDTO(Long id, String nombre, String apellido1, String apellido2, String cedula, Timestamp fechaNacimiento) {
         this.id = id;
         this.nombre = nombre;

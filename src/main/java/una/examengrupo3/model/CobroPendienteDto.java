@@ -5,7 +5,6 @@
  */
 package una.examengrupo3.model;
 
-import java.time.Year;
 import java.util.Date;
 
 /**
@@ -13,13 +12,37 @@ import java.util.Date;
  * @author LordLalo
  */
 public class CobroPendienteDTO {
-     private Long id;
-    private Year anno;
+
+    private Long id;
+    private String anno;
     private Date fechaVencimiento;
     private Integer monto;
     private boolean estado;
     private String periodo;
     private MembresiaClienteDTO membresiaClienteId;
+    private Integer cantidad;
+
+    public CobroPendienteDTO() {
+    }
+
+    public CobroPendienteDTO(String anno, Date fechaVencimiento, Integer monto, boolean estado, String periodo, MembresiaClienteDTO membresiaClienteId,Integer cantidad) {
+
+        this.anno = anno;
+        this.fechaVencimiento = fechaVencimiento;
+        this.monto = monto;
+        this.estado = estado;
+        this.periodo = periodo;
+        this.membresiaClienteId = membresiaClienteId;
+        this.cantidad=cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
 
     public Long getId() {
         return id;
@@ -29,11 +52,11 @@ public class CobroPendienteDTO {
         this.id = id;
     }
 
-    public Year getAnno() {
+    public String getAnno() {
         return anno;
     }
 
-    public void setAnno(Year anno) {
+    public void setAnno(String anno) {
         this.anno = anno;
     }
 
@@ -76,5 +99,5 @@ public class CobroPendienteDTO {
     public void setMembresiaClienteId(MembresiaClienteDTO membresiaClienteId) {
         this.membresiaClienteId = membresiaClienteId;
     }
-    
+
 }

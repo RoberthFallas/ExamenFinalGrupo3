@@ -13,12 +13,22 @@ import java.util.List;
  * @author LordLalo
  */
 public class MembresiaDTO {
+
+    private boolean estado;
     private Long id;
     private String periodicidad;
     private Integer monto;
     private String descripcion;
     private ServicioDTO servicioId;
     private List<MembresiaClienteDTO> membresiaCliente = new ArrayList<>();
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -67,5 +77,5 @@ public class MembresiaDTO {
     public List<MembresiaClienteDTO> getMembresiaCliente() {
         return membresiaCliente;
     }
-    
+
 }

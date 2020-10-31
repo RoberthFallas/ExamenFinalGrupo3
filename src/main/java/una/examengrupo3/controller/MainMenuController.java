@@ -40,7 +40,7 @@ public class MainMenuController extends Controller implements Initializable {
 
     @FXML
     public void goGerardoModule(ActionEvent event) {
-        FlowController.getInstance().goView("MenuCobros");
+        FlowController.getInstance().goView("MostrarCobros");
     }
 
     @FXML
