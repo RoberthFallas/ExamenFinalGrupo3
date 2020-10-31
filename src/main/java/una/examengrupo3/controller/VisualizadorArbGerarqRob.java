@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -62,6 +63,7 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        plusButton.setTooltip(new Tooltip("Agregar nuevo elemento"));
     }
 
     @Override
@@ -80,6 +82,7 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
             niveles.pop();
             changeTreeTittle();
             goToNewLevel(niveles.peek(), false);
+            ((VisualizadorSuperUnidController) AppContext.getInstance().get("VisualSuperUnidad")).clearUI();
         } else {
             FlowController.getInstance().goBack();
         }

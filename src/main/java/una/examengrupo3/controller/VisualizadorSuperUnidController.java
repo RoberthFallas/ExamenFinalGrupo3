@@ -38,11 +38,12 @@ public class VisualizadorSuperUnidController extends Controller implements Initi
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }
 
     @Override
     public void initialize() {
+        AppContext.getInstance().set("VisualSuperUnidad", this);
         sUnidad = (SuperUnidad) AppContext.getInstance().get("toShowDetall");
         AppContext.getInstance().delete("toShowDetall");
         chargeData();
@@ -52,7 +53,14 @@ public class VisualizadorSuperUnidController extends Controller implements Initi
         lblCodigo.setText("Código: " + sUnidad.getCodigo());
         lblNombre.setText("Nombre: " + sUnidad.getNombre());
         lblExtencion.setText("Extención: " + sUnidad.getAreaMetrosCuadrados() + " metros cuadrados.");
-        lblPoblacion.setText("Extención: " + sUnidad.getPoblacion() + " habitantes.");
+        lblPoblacion.setText("Población: " + sUnidad.getPoblacion() + " habitantes.");
+    }
+
+    public void clearUI() {
+        lblCodigo.setText("Código: ");
+        lblNombre.setText("Nombre: ");
+        lblExtencion.setText("Extención: ");
+        lblPoblacion.setText("Población: ");
     }
 
 }
