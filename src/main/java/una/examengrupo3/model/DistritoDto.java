@@ -19,8 +19,11 @@ public class DistritoDto extends SuperUnidad {
 
     @Override
     public Long getPoblacion() {
-        if (this.poblacion == null) {
+        if (unidades != null) {
             poblacion = unidades.stream().mapToLong(unidad -> unidad.getPoblacion()).sum();
+        } else {
+            unidades = new ArrayList();
+            poblacion = 0L;
         }
         return this.poblacion;
     }
@@ -28,9 +31,11 @@ public class DistritoDto extends SuperUnidad {
     @Override
     @SuppressWarnings("null")
     public Float getAreaMetrosCuadrados() {
-        if (this.areaMetrosCuadrados == null) {
-            areaMetrosCuadrados = areaMetrosCuadrados == null ? 0f : areaMetrosCuadrados;
+        areaMetrosCuadrados = 0F;
+        if (unidades != null) {
             unidades.forEach(unidad -> this.areaMetrosCuadrados += unidad.getAreaMetrosCuadrados());
+        } else {
+            unidades = new ArrayList();
         }
         return this.areaMetrosCuadrados;
     }
@@ -56,11 +61,14 @@ public class DistritoDto extends SuperUnidad {
         if (unidades == null) {
             unidades = new ArrayList();
         }
-        if (this.auxSuperUnidadList == null) {
-            auxSuperUnidadList = new ArrayList();
-            unidades.forEach(unid -> auxSuperUnidadList.add(unid));
-        }
+        auxSuperUnidadList = new ArrayList();
+        unidades.forEach(unid -> auxSuperUnidadList.add(unid));
         return auxSuperUnidadList;
+    }
+
+    @Override
+    public void addNewChildren(SuperUnidad superU) {
+        this.unidades.add((UnidadDto) superU);
     }
 
 }

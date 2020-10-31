@@ -5,7 +5,6 @@
  */
 package una.examengrupo3.services;
 
-import una.examengrupo3.model.CantonDto;
 import una.examengrupo3.model.DistritoDto;
 import una.examengrupo3.util.Respuesta;
 import una.examengrupo3.util.RestConector;
@@ -20,6 +19,7 @@ public class DistritoService {
 
     public Respuesta create(DistritoDto distrito) {
         restC = new RestConector("/distritos/create");
+        restC.changeDateFormatSerialization("yyy-MM-dd'T'HH:mm:ss.SSSX");
         restC.post((DistritoDto) distrito);
         if (restC.isError()) {
             return new Respuesta(false, "Error al registrar nuevo distrito en el sistema.", "");

@@ -164,6 +164,7 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
     }
 
     public void putActionButonToCloud(SUCharger cloud) {
+        cloud.getChildren().removeIf(node -> node instanceof Button);
         Button action = new Button("Ampliar");
         action.setOnAction(event -> {
             AppContext.getInstance().set("toShowDetall", cloud.getsUnidad());
@@ -175,7 +176,7 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
                 cloud.getsUnidad().getAuxSuperUnidadList().forEach(sUnid -> chargerList.add(new SUCharger(sUnid)));
                 goToNewLevel(chargerList, true);
                 changeTreeTittle();
-            }else{
+            } else {
                 plusButton.setDisable(true);
             }
         });
@@ -211,6 +212,7 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
 
     public void addCloudFromExterior(SuperUnidad superU) {
         SUCharger suc = new SUCharger(superU);
+        chargeSuperUOnSelectedElement(superU);
         treeLevelCharger.getChildren().forEach(act -> {//Revisa la lista para asegurarse de que el dato a ingresar no sea repetido.
             if (act instanceof SUCharger) {
                 if (((SUCharger) act).getsUnidad().getId().equals(superU.getId())) {
@@ -226,6 +228,12 @@ public class VisualizadorArbGerarqRob extends Controller implements Initializabl
         niveles.peek().add(suc);
         putActionButonToCloud(suc);
         treeLevelCharger.getChildren().add(suc);
+    }
+
+    private void chargeSuperUOnSelectedElement(SuperUnidad su) {
+        if (!selectedRout.isEmpty()) {
+            selectedRout.peek().getsUnidad().addNewChildren(su);
+        }
     }
 
 }

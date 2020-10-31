@@ -36,11 +36,12 @@ public class ProvinciaService {
     }
 
     public Respuesta create(ProvinciaDto provincia) {
-        RestConector rc = new RestConector("/provincias/create");
-        rc.post((ProvinciaDto) provincia);
-        if (rc.isError()) {
+        restC = new RestConector("/provincias/create");
+        restC.changeDateFormatSerialization("yyy-MM-dd'T'HH:mm:ss.SSSX");
+        restC.post((ProvinciaDto) provincia);
+        if (restC.isError()) {
             return new Respuesta(false, "Error al registrar nueva provincia en el sistema.", "");
         }
-        return new Respuesta(true, "", "", "data", rc.<ProvinciaDto>getResultAsObject(ProvinciaDto.class));
+        return new Respuesta(true, "", "", "data", restC.<ProvinciaDto>getResultAsObject(ProvinciaDto.class));
     }
 }

@@ -26,6 +26,8 @@ public abstract class SuperUnidad {
 
     public abstract List<SuperUnidad> getAuxSuperUnidadList();
 
+    public abstract void addNewChildren(SuperUnidad superU);
+
     public String getNombre() {
         return nombre;
     }
@@ -49,5 +51,5 @@ public abstract class SuperUnidad {
     public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
-    
+
 }

@@ -65,4 +65,9 @@ public class UnidadDto extends SuperUnidad {
         throw new UnsupportedOperationException("No necesario para este tipo de dato"); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void addNewChildren(SuperUnidad superU) {
+        throw new UnsupportedOperationException("No necesario para este tipo de dato"); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

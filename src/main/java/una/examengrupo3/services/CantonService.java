@@ -18,11 +18,12 @@ public class CantonService {
     private RestConector restC;
 
     public Respuesta create(CantonDto canton) {
-        RestConector rc = new RestConector("/cantones/create");
-        rc.post((CantonDto) canton);
-        if (rc.isError()) {
+        restC = new RestConector("/cantones/create");
+        restC.changeDateFormatSerialization("yyy-MM-dd'T'HH:mm:ss.SSSX");
+        restC.post((CantonDto) canton);
+        if (restC.isError()) {
             return new Respuesta(false, "Error al registrar nuevo cantón en el sistema.", "");
         }
-        return new Respuesta(true, "", "", "data", rc.<CantonDto>getResultAsObject(CantonDto.class));
+        return new Respuesta(true, "", "", "data", restC.<CantonDto>getResultAsObject(CantonDto.class));
     }
 }
